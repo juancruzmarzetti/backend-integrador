@@ -6,7 +6,7 @@ public class Turno {
     private int id;
     private LocalDate fecha;
     private LocalTime hora;
-
+    public Turno(){};
     public Turno(int id, LocalDate fecha, LocalTime hora) {
         this.id = id;
         this.fecha = fecha;
