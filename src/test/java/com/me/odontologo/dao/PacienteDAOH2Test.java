@@ -1,8 +1,7 @@
 package com.me.odontologo.dao;
 
-import com.me.odontologo.dao.implementations.PacienteDAOH2;
-import com.me.odontologo.domain.Domicilio;
-import com.me.odontologo.domain.Paciente;
+import com.me.odontologo.model.Domicilio;
+import com.me.odontologo.model.Paciente;
 import com.me.odontologo.services.implementations.PacienteService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
 package com.me.odontologo.services;
 
-import com.me.odontologo.domain.Domicilio;
+import com.me.odontologo.model.Domicilio;
 import java.util.List;
 
 public interface IDomicilioService {

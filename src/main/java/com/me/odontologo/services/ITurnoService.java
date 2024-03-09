@@ -1,6 +1,6 @@
 package com.me.odontologo.services;
 
-import com.me.odontologo.domain.Turno;
+import com.me.odontologo.model.Turno;
 
 import java.util.List;
 

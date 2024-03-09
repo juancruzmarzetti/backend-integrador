@@ -2,7 +2,7 @@ package com.me.odontologo.dao.implementations;
 
 import com.me.odontologo.dao.DB;
 import com.me.odontologo.dao.IDao;
-import com.me.odontologo.domain.Domicilio;
+import com.me.odontologo.model.Domicilio;
 import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package com.me.odontologo.services.implementations;
 
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.PacienteDAOH2;
-import com.me.odontologo.domain.Paciente;
+import com.me.odontologo.model.Paciente;
 import com.me.odontologo.services.IPacienteService;
 import org.springframework.stereotype.Service;
 import java.util.List;

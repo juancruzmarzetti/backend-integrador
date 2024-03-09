@@ -2,8 +2,7 @@ package com.me.odontologo.services.implementations;
 
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.DomicilioDAOH2;
-import com.me.odontologo.domain.Domicilio;
-import com.me.odontologo.domain.Odontologo;
+import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.services.IDomicilioService;
 import org.springframework.stereotype.Service;
 

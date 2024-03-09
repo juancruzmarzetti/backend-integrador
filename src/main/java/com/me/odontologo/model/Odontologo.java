@@ -1,4 +1,4 @@
-package com.me.odontologo.domain;
+package com.me.odontologo.model;
 
 public class Odontologo {
     private int id;

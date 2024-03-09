@@ -1,10 +1,9 @@
 package com.me.odontologo.dao;
 
-import com.me.odontologo.dao.implementations.TurnoDAOList;
-import com.me.odontologo.domain.Domicilio;
-import com.me.odontologo.domain.Odontologo;
-import com.me.odontologo.domain.Paciente;
-import com.me.odontologo.domain.Turno;
+import com.me.odontologo.model.Domicilio;
+import com.me.odontologo.model.Odontologo;
+import com.me.odontologo.model.Paciente;
+import com.me.odontologo.model.Turno;
 import com.me.odontologo.services.implementations.TurnoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;

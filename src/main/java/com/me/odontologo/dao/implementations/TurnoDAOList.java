@@ -1,7 +1,7 @@
 package com.me.odontologo.dao.implementations;
 
 import com.me.odontologo.dao.IDao;
-import com.me.odontologo.domain.Turno;
+import com.me.odontologo.model.Turno;
 
 import java.util.ArrayList;
 import java.util.List;

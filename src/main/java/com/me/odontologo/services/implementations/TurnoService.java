@@ -2,8 +2,7 @@ package com.me.odontologo.services.implementations;
 
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.TurnoDAOList;
-import com.me.odontologo.domain.Odontologo;
-import com.me.odontologo.domain.Turno;
+import com.me.odontologo.model.Turno;
 import com.me.odontologo.services.ITurnoService;
 import org.springframework.stereotype.Service;
 import java.util.List;
