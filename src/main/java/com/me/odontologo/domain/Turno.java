@@ -4,15 +4,18 @@ import java.time.LocalTime;
 
 public class Turno {
     private int id;
+    private Odontologo odontologo;
+    private Paciente paciente;
     private LocalDate fecha;
     private LocalTime hora;
     public Turno(){};
-    public Turno(int id, LocalDate fecha, LocalTime hora) {
+    public Turno(int id, Odontologo odontologo, Paciente paciente, LocalDate fecha, LocalTime hora) {
         this.id = id;
+        this.odontologo = odontologo;
+        this.paciente = paciente;
         this.fecha = fecha;
         this.hora = hora;
     }
-
     public int getId() {
         return id;
     }
@@ -35,5 +38,21 @@ public class Turno {
 
     public void setHora(LocalTime hora) {
         this.hora = hora;
+    }
+
+    public Odontologo getOdontologo() {
+        return odontologo;
+    }
+
+    public void setOdontologo(Odontologo odontologo) {
+        this.odontologo = odontologo;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 }

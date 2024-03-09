@@ -1,103 +1,70 @@
 package com.me.odontologo.dao;
 
+import com.me.odontologo.dao.implementations.DomicilioDAOH2;
 import com.me.odontologo.domain.Domicilio;
 import com.me.odontologo.services.DomicilioService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.List;
 
 class DomicilioDAOH2Test {
     @Test
-    public void guardarYBuscarTodos() {
-        String DB_CREATE_TABLE_DOMICILIOS = "DROP TABLE IF EXISTS DOMICILIOS;" +
-                "CREATE TABLE DOMICILIOS ( " +
-                "ID INT AUTO_INCREMENT PRIMARY KEY, " +
-                "CALLE VARCHAR(255) NOT NULL, " +
-                "NUMERO INT NOT NULL, " +
-                "LOCALIDAD VARCHAR(255) NOT NULL, " +
-                "PROVINCIA VARCHAR(255) NOT NULL);";
+    public void guardarUno(){
+        DB.crearTablas();
 
-        try {
-            Class.forName("org.h2.Driver");
-            Connection c = DriverManager.getConnection("jdbc:h2:~/mydaodb", "sa", "");
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(DB_CREATE_TABLE_DOMICILIOS);
+        Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
 
-            Domicilio domicilio1 = new Domicilio(1, "Av. Rivadavia", 1234, "Buenos Aires", "CABA");
-            Domicilio domicilio2 = new Domicilio(2, "Av. de Mayo", 5678, "La Plata", "Buenos Aires");
+        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        Domicilio domicilioGuardado = domicilioService.guardarDomicilio(domicilio1);
 
-            DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
-            domicilioService.guardarDomicilio(domicilio1);
-            domicilioService.guardarDomicilio(domicilio2);
+        Assertions.assertEquals(domicilio1.getNumero(), domicilioGuardado.getNumero());
+    }
+    @Test
+    public void buscarTodos() {
+        DB.crearTablas();
+        // para que este test funcione
+        // no se deben insertar datos manualmente en las tablas
+        // desde el método "crearTablas" de la clase DB
+        Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
+        Domicilio domicilio2 = new Domicilio("Av. de Mayo", 5678, "La Plata", "Buenos Aires");
 
-            List<Domicilio> domicilios = domicilioService.buscarTodosLosDomicilios();
-            Assertions.assertEquals(2, domicilios.size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        domicilioService.guardarDomicilio(domicilio1);
+        domicilioService.guardarDomicilio(domicilio2);
+
+        List<Domicilio> domicilios = domicilioService.buscarTodosLosDomicilios();
+        Assertions.assertEquals(2, domicilios.size());
     }
 
     @Test
     public void eliminarUno() {
-        String DB_CREATE_TABLE_DOMICILIOS = "DROP TABLE IF EXISTS DOMICILIOS;" +
-                "CREATE TABLE DOMICILIOS ( " +
-                "ID INT AUTO_INCREMENT PRIMARY KEY, " +
-                "CALLE VARCHAR(255) NOT NULL, " +
-                "NUMERO INT NOT NULL, " +
-                "LOCALIDAD VARCHAR(255) NOT NULL, " +
-                "PROVINCIA VARCHAR(255) NOT NULL);";
+        DB.crearTablas();
+        // para que este test funcione
+        // no se deben insertar datos manualmente en las tablas
+        // desde el método "crearTablas" de la clase DB
+        Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
+        Domicilio domicilio2 = new Domicilio("Av. de Mayo", 5678, "La Plata", "Buenos Aires");
 
-        try {
-            Class.forName("org.h2.Driver");
-            Connection c = DriverManager.getConnection("jdbc:h2:~/mydaodb", "sa", "");
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(DB_CREATE_TABLE_DOMICILIOS);
+        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        Domicilio domicilioAEliminar = domicilioService.guardarDomicilio(domicilio1);
+        domicilioService.guardarDomicilio(domicilio2);
+        domicilioService.eliminarDomicilio(domicilioAEliminar.getId());
+        List<Domicilio> domicilios = domicilioService.buscarTodosLosDomicilios();
 
-            Domicilio domicilio1 = new Domicilio(1, "Av. Rivadavia", 1234, "Buenos Aires", "CABA");
-            Domicilio domicilio2 = new Domicilio(2, "Av. de Mayo", 5678, "La Plata", "Buenos Aires");
-
-            DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
-            domicilioService.guardarDomicilio(domicilio1);
-            domicilioService.guardarDomicilio(domicilio2);
-            domicilioService.eliminarDomicilio(domicilio1.getId());
-
-            List<Domicilio> domicilios = domicilioService.buscarTodosLosDomicilios();
-            Assertions.assertEquals(1, domicilios.size());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Assertions.assertEquals(1, domicilios.size());
     }
 
     @Test
     public void buscarUno() {
-        String DB_CREATE_TABLE_DOMICILIOS = "DROP TABLE IF EXISTS DOMICILIOS;" +
-                "CREATE TABLE DOMICILIOS ( " +
-                "ID INT AUTO_INCREMENT PRIMARY KEY, " +
-                "CALLE VARCHAR(255) NOT NULL, " +
-                "NUMERO INT NOT NULL, " +
-                "LOCALIDAD VARCHAR(255) NOT NULL, " +
-                "PROVINCIA VARCHAR(255) NOT NULL);";
+        DB.crearTablas();
 
-        try {
-            Class.forName("org.h2.Driver");
-            Connection c = DriverManager.getConnection("jdbc:h2:~/mydaodb", "sa", "");
-            Statement stmt = c.createStatement();
-            stmt.executeUpdate(DB_CREATE_TABLE_DOMICILIOS);
+        Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
 
-            Domicilio domicilio1 = new Domicilio(1, "Av. Rivadavia", 1234, "Buenos Aires", "CABA");
-            Domicilio domicilio2 = new Domicilio(2, "Av. de Mayo", 5678, "La Plata", "Buenos Aires");
+        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        Domicilio domicilioABuscar = domicilioService.guardarDomicilio(domicilio1);
+        Domicilio domicilioBuscado = domicilioService.buscarDomicilio(domicilioABuscar.getId());
 
-            DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
-            domicilioService.guardarDomicilio(domicilio1);
-            domicilioService.guardarDomicilio(domicilio2);
-            domicilioService.buscarDomicilio(domicilio1.getId());
-            Assertions.assertEquals(1, domicilioService.buscarDomicilio(domicilio1.getId()).getId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Assertions.assertEquals(domicilioABuscar.getId(), domicilioBuscado.getId());
     }
 }

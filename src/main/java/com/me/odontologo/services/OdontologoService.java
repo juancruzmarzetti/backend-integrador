@@ -5,13 +5,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class OdontologoService {
+    //TODO Inicializar Dao en constructor
     private IDao<Odontologo> odontologoDAO;
     public OdontologoService(){};
     public OdontologoService(IDao<Odontologo> odontologoDAO) {
         this.odontologoDAO = odontologoDAO;
     }
-    public void guardarOdontologo(Odontologo odontologo){
-        odontologoDAO.guardar(odontologo);
+    public Odontologo guardarOdontologo(Odontologo odontologo){
+        return odontologoDAO.guardar(odontologo);
     }
     public void eliminarOdontologo(int id){
         odontologoDAO.eliminar(id);

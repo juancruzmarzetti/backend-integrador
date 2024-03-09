@@ -9,12 +9,12 @@ import java.util.List;
 @Service
 public class TurnoService {
     private IDao<Turno> turnoDAO;
-    public TurnoService(){};
+    //TODO implementar TurnoDAOList en vez de TurnoDAOH2. inicializar Dao en constructor
     public TurnoService(IDao<Turno> turnoDAO) {
         this.turnoDAO = turnoDAO;
     }
-    public void guardarTurno(Turno turno){
-        turnoDAO.guardar(turno);
+    public Turno guardarTurno(Turno turno){
+        return turnoDAO.guardar(turno);
     }
     public void eliminarTurno(int id){
         turnoDAO.eliminar(id);

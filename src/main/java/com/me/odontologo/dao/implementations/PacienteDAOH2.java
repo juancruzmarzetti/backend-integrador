@@ -1,26 +1,28 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.dao.implementations;
 
+import com.me.odontologo.dao.DB;
+import com.me.odontologo.dao.IDao;
+import com.me.odontologo.domain.Domicilio;
 import com.me.odontologo.domain.Paciente;
 import org.apache.log4j.Logger;
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PacienteDAOH2 implements IDao<Paciente>{
+public class PacienteDAOH2 implements IDao<Paciente> {
     private static final Logger LOGGER = Logger.getLogger(PacienteDAOH2.class);
     private static final String DB_CONFIG_JDBC_DRIVER = "org.h2.Driver";
     private static final String DB_CONFIG_URL = "jdbc:h2:~/mydaodb";
     private static final String DB_CONFIG_USER = "sa";
     private static final String DB_CONFIG_PASSWORD = "";
     private static final String SQL_INSERT =
-            "INSERT INTO PACIENTES (ID, NOMBRE, APELLIDO, DOMICILIO, " +
+            "INSERT INTO PACIENTES (ID, NOMBRE, APELLIDO, DOMICILIO_ID, " +
                     "DNI, FECHA_DE_ALTA, USUARIO, PASSWORD) " +
                     "VALUES (?,?,?,?,?,?,?,?);";
     private static final String PSTMT_BUSCAR = "SELECT * FROM PACIENTES WHERE ID = ?;";
     private static final String PSTMT_ELIMINAR = "DELETE FROM PACIENTES WHERE ID = ?";
-    private static final String PSTMT_GUARDAR = "INSERT INTO PACIENTES (ID, NOMBRE, APELLIDO, DOMICILIO, DNI, FECHA_DE_ALTA, USUARIO, PASSWORD)" +
-            "VALUES (?,?,?,?,?,?,?,?)";
+    private static final String PSTMT_GUARDAR = "INSERT INTO PACIENTES (NOMBRE, APELLIDO, DOMICILIO_ID, DNI, FECHA_DE_ALTA, USUARIO, PASSWORD)" +
+            "VALUES (?,?,?,?,?,?,?)";
     //private static final String SQL_UPDATE = "UPDATE PACIENTES SET PASSWORD=? WHERE ID=?;";
     private static final String SQL_SELECT_PACIENTES = "SELECT * FROM PACIENTES";
     /*
@@ -99,16 +101,18 @@ public class PacienteDAOH2 implements IDao<Paciente>{
         Statement stmt = null;
         List<Paciente> pacientes = new ArrayList<>();
         try{
-            Class.forName(DB_CONFIG_JDBC_DRIVER);
-            c = DriverManager.getConnection(DB_CONFIG_URL, DB_CONFIG_USER, DB_CONFIG_PASSWORD);
+            c = DB.getConnection();
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(SQL_SELECT_PACIENTES);
             while(rs.next()){
+                DomicilioDAOH2 domicilioDaoH2 = new DomicilioDAOH2();
+                Domicilio domicilio = domicilioDaoH2.buscar(rs.getInt(4));
+
                 Paciente paciente = new Paciente(
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4),
+                        domicilio,
                         rs.getInt(5),
                         rs.getDate(6).toLocalDate(),
                         rs.getString(7),
@@ -141,11 +145,16 @@ public class PacienteDAOH2 implements IDao<Paciente>{
             pstmt = c.prepareStatement(PSTMT_BUSCAR);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
+
+            DomicilioDAOH2 domicilioDaoH2 = new DomicilioDAOH2();
+
             while(rs.next()){
+                Domicilio domicilio = domicilioDaoH2.buscar(rs.getInt(4));
+
                 paciente.setId(id);
                 paciente.setNombre(rs.getString(2));
                 paciente.setApellido(rs.getString(3));
-                paciente.setDomicilio(rs.getString(4));
+                paciente.setDomicilio(domicilio);
                 paciente.setDni(rs.getInt(5));
                 paciente.setFechaDeAlta(rs.getDate(6).toLocalDate());
                 paciente.setUsuario(rs.getString(7));
@@ -166,22 +175,25 @@ public class PacienteDAOH2 implements IDao<Paciente>{
         return paciente;
     }
     @Override
-    public void guardar(Paciente paciente) {
+    public Paciente guardar(Paciente paciente) {
         Connection c = null;
         PreparedStatement pstmt = null;
         try{
-            Class.forName(DB_CONFIG_JDBC_DRIVER);
-            c = DriverManager.getConnection(DB_CONFIG_URL, DB_CONFIG_USER, DB_CONFIG_PASSWORD);
-            pstmt = c.prepareStatement(PSTMT_GUARDAR);
-            pstmt.setInt(1, paciente.getId());
-            pstmt.setString(2, paciente.getNombre());
-            pstmt.setString(3, paciente.getApellido());
-            pstmt.setString(4, paciente.getDomicilio());
-            pstmt.setInt(5, paciente.getDni());
-            pstmt.setDate(6, Date.valueOf(paciente.getFechaDeAlta()));
-            pstmt.setString(7, paciente.getUsuario());
-            pstmt.setString(8, paciente.getPassword());
+            c = DB.getConnection();
+            pstmt = c.prepareStatement(PSTMT_GUARDAR, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setString(1, paciente.getNombre());
+            pstmt.setString(2, paciente.getApellido());
+            pstmt.setInt(3, paciente.getDomicilio().getId());
+            pstmt.setInt(4, paciente.getDni());
+            pstmt.setDate(5, Date.valueOf(paciente.getFechaDeAlta()));
+            pstmt.setString(6, paciente.getUsuario());
+            pstmt.setString(7, paciente.getPassword());
             pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            while(rs.next()){
+                paciente.setId(rs.getInt(1));
+            }
             pstmt.close();
         }catch (Exception e){
             LOGGER.error("Error al guardar paciente: ", e);
@@ -194,14 +206,14 @@ public class PacienteDAOH2 implements IDao<Paciente>{
                         "de un paciente: ", ex);
             }
         }
+        return paciente;
     }
     @Override
     public void eliminar(int id) {
         Connection c = null;
         PreparedStatement pstmt = null;
         try{
-            Class.forName(DB_CONFIG_JDBC_DRIVER);
-            c = DriverManager.getConnection(DB_CONFIG_URL, DB_CONFIG_USER, DB_CONFIG_PASSWORD);
+            c = DB.getConnection();
             pstmt = c.prepareStatement(PSTMT_ELIMINAR);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
@@ -218,22 +230,4 @@ public class PacienteDAOH2 implements IDao<Paciente>{
             }
         }
     }
-    /*
-    private static Connection getConnection(){
-        Connection c = null;
-        try{
-            Class.forName("org.h2.Driver").newInstance();
-        }catch(Exception e){
-            LOGGER.error("No se pudo crear una instancia de Driver de la base de datos H2: ", e);
-        }finally{
-            try{
-                c = DriverManager.getConnection("jdbc:h2:"+
-                        "./Database/my", "sa", "sa");
-            }catch (Exception e){
-                LOGGER.error("No se pudo establecer conexion con la base de datos: ", e);
-            }
-        }
-        return c;
-    };
-    */
 }
