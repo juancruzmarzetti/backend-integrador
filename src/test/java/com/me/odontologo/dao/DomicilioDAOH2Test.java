@@ -2,7 +2,7 @@ package com.me.odontologo.dao;
 
 import com.me.odontologo.dao.implementations.DomicilioDAOH2;
 import com.me.odontologo.domain.Domicilio;
-import com.me.odontologo.services.DomicilioService;
+import com.me.odontologo.services.implementations.DomicilioService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +15,7 @@ class DomicilioDAOH2Test {
 
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
 
-        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        DomicilioService domicilioService = new DomicilioService();
         Domicilio domicilioGuardado = domicilioService.guardarDomicilio(domicilio1);
 
         Assertions.assertEquals(domicilio1.getNumero(), domicilioGuardado.getNumero());
@@ -29,7 +29,7 @@ class DomicilioDAOH2Test {
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
         Domicilio domicilio2 = new Domicilio("Av. de Mayo", 5678, "La Plata", "Buenos Aires");
 
-        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        DomicilioService domicilioService = new DomicilioService();
         domicilioService.guardarDomicilio(domicilio1);
         domicilioService.guardarDomicilio(domicilio2);
 
@@ -46,7 +46,7 @@ class DomicilioDAOH2Test {
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
         Domicilio domicilio2 = new Domicilio("Av. de Mayo", 5678, "La Plata", "Buenos Aires");
 
-        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        DomicilioService domicilioService = new DomicilioService();
         Domicilio domicilioAEliminar = domicilioService.guardarDomicilio(domicilio1);
         domicilioService.guardarDomicilio(domicilio2);
         domicilioService.eliminarDomicilio(domicilioAEliminar.getId());
@@ -61,7 +61,7 @@ class DomicilioDAOH2Test {
 
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
 
-        DomicilioService domicilioService = new DomicilioService(new DomicilioDAOH2());
+        DomicilioService domicilioService = new DomicilioService();
         Domicilio domicilioABuscar = domicilioService.guardarDomicilio(domicilio1);
         Domicilio domicilioBuscado = domicilioService.buscarDomicilio(domicilioABuscar.getId());
 

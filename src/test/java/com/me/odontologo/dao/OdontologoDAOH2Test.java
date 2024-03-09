@@ -2,7 +2,7 @@ package com.me.odontologo.dao;
 
 import com.me.odontologo.dao.implementations.OdontologoDAOH2;
 import com.me.odontologo.domain.Odontologo;
-import com.me.odontologo.services.OdontologoService;
+import com.me.odontologo.services.implementations.OdontologoService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;
@@ -15,7 +15,7 @@ class OdontologoDAOH2Test {
 
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
 
-        OdontologoService odontologoService = new OdontologoService(new OdontologoDAOH2());
+        OdontologoService odontologoService = new OdontologoService();
         Odontologo odontologoGuardado = odontologoService.guardarOdontologo(odontologo1);
 
         Assertions.assertEquals(odontologo1.getMatricula(), odontologoGuardado.getMatricula());
@@ -30,7 +30,7 @@ class OdontologoDAOH2Test {
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
         Odontologo odontologo2 = new Odontologo(2, "Lionel", "Messi");
 
-        OdontologoService odontologoService = new OdontologoService(new OdontologoDAOH2());
+        OdontologoService odontologoService = new OdontologoService();
         odontologoService.guardarOdontologo(odontologo1);
         odontologoService.guardarOdontologo(odontologo2);
 
@@ -47,7 +47,7 @@ class OdontologoDAOH2Test {
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
         Odontologo odontologo2 = new Odontologo(2, "Lionel", "Messi");
 
-        OdontologoService odontologoService = new OdontologoService(new OdontologoDAOH2());
+        OdontologoService odontologoService = new OdontologoService();
         Odontologo odontologoAEliminar = odontologoService.guardarOdontologo(odontologo1);
         odontologoService.guardarOdontologo(odontologo2);
         odontologoService.eliminarOdontologo(odontologoAEliminar.getId());
@@ -62,7 +62,7 @@ class OdontologoDAOH2Test {
 
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
 
-        OdontologoService odontologoService = new OdontologoService(new OdontologoDAOH2());
+        OdontologoService odontologoService = new OdontologoService();
         Odontologo odontologoABuscar = odontologoService.guardarOdontologo(odontologo1);
         Odontologo odontologoBuscado = odontologoService.buscar(odontologoABuscar.getId());
 

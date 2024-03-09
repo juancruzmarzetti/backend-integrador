@@ -1,27 +1,34 @@
-package com.me.odontologo.services;
+package com.me.odontologo.services.implementations;
 
 import com.me.odontologo.dao.IDao;
+import com.me.odontologo.dao.implementations.TurnoDAOList;
 import com.me.odontologo.domain.Odontologo;
 import com.me.odontologo.domain.Turno;
+import com.me.odontologo.services.ITurnoService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TurnoService {
+public class TurnoService implements ITurnoService {
     private IDao<Turno> turnoDAO;
-    //TODO implementar TurnoDAOList en vez de TurnoDAOH2. inicializar Dao en constructor
-    public TurnoService(IDao<Turno> turnoDAO) {
-        this.turnoDAO = turnoDAO;
+
+    public TurnoService() {
+        turnoDAO = new TurnoDAOList();
     }
+
+    @Override
     public Turno guardarTurno(Turno turno){
         return turnoDAO.guardar(turno);
     }
+    @Override
     public void eliminarTurno(int id){
         turnoDAO.eliminar(id);
     }
+    @Override
     public List<Turno> buscarTodosLosTurnos(){
         return turnoDAO.buscarTodos();
     }
+    @Override
     public Turno buscar(int id){
         return turnoDAO.buscar(id);
     }

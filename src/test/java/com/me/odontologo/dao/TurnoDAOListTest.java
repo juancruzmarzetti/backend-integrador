@@ -5,7 +5,7 @@ import com.me.odontologo.domain.Domicilio;
 import com.me.odontologo.domain.Odontologo;
 import com.me.odontologo.domain.Paciente;
 import com.me.odontologo.domain.Turno;
-import com.me.odontologo.services.TurnoService;
+import com.me.odontologo.services.implementations.TurnoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -28,7 +28,7 @@ class TurnoDAOListTest {
                 LocalTime.of(15, 30, 0)
         );
 
-        TurnoService turnoService = new TurnoService(new TurnoDAOList());
+        TurnoService turnoService = new TurnoService();
         turnoService.guardarTurno(turno);
         Turno turnoBuscado = turnoService.buscar(turno.getId());
 
@@ -60,7 +60,7 @@ class TurnoDAOListTest {
                 LocalTime.of(22, 32, 2)
         );
 
-        TurnoService turnoService = new TurnoService(new TurnoDAOList());
+        TurnoService turnoService = new TurnoService();
         turnoService.guardarTurno(turno1);
         turnoService.guardarTurno(turno2);
         List<Turno> turnos = turnoService.buscarTodosLosTurnos();
@@ -81,7 +81,7 @@ class TurnoDAOListTest {
                 LocalTime.of(15, 30, 0)
         );
 
-        TurnoService turnoService = new TurnoService(new TurnoDAOList());
+        TurnoService turnoService = new TurnoService();
         turnoService.guardarTurno(turno1);
         turnoService.eliminarTurno(turno1.getId());
         List<Turno> turnos = turnoService.buscarTodosLosTurnos();
@@ -102,7 +102,7 @@ class TurnoDAOListTest {
                 LocalTime.of(15, 30, 0)
         );
 
-        TurnoService turnoService = new TurnoService(new TurnoDAOList());
+        TurnoService turnoService = new TurnoService();
         turnoService.guardarTurno(turno1);
         Turno turnoBuscado = turnoService.buscar(turno1.getId());
 

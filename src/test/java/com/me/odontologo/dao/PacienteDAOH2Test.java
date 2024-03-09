@@ -3,7 +3,7 @@ package com.me.odontologo.dao;
 import com.me.odontologo.dao.implementations.PacienteDAOH2;
 import com.me.odontologo.domain.Domicilio;
 import com.me.odontologo.domain.Paciente;
-import com.me.odontologo.services.PacienteService;
+import com.me.odontologo.services.implementations.PacienteService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ class PacienteDAOH2Test {
                 "usuario1",
                 "password1"
         );
-        PacienteService pacienteService = new PacienteService(new PacienteDAOH2());
+        PacienteService pacienteService = new PacienteService();
         Paciente pacienteAlGuardar = pacienteService.guardarPaciente(paciente1);
 
         Assertions.assertEquals(paciente1.getDni(), pacienteAlGuardar.getDni());
@@ -44,7 +44,7 @@ class PacienteDAOH2Test {
                 "usuario1",
                 "password1"
         );
-        PacienteService pacienteService = new PacienteService(new PacienteDAOH2());
+        PacienteService pacienteService = new PacienteService();
         Paciente pacienteAlGuardar = pacienteService.guardarPaciente(paciente1);
         Paciente pacienteBuscado = pacienteService.buscar(pacienteAlGuardar.getId());
         Assertions.assertEquals(pacienteAlGuardar.getId(), pacienteBuscado.getId());
@@ -80,7 +80,7 @@ class PacienteDAOH2Test {
                 "password2"
         );
 
-        PacienteService pacienteService = new PacienteService(new PacienteDAOH2());
+        PacienteService pacienteService = new PacienteService();
         Paciente pacienteAEliminar = pacienteService.guardarPaciente(paciente1);
         Paciente pacienteAChequear = pacienteService.guardarPaciente(paciente2);
         pacienteService.eliminarPaciente(pacienteAEliminar.getId());
@@ -116,7 +116,7 @@ class PacienteDAOH2Test {
                 "usuario2",
                 "password2"
         );
-        PacienteService pacienteService = new PacienteService(new PacienteDAOH2());
+        PacienteService pacienteService = new PacienteService();
         pacienteService.guardarPaciente(paciente1);
         pacienteService.guardarPaciente(paciente2);
         List<Paciente> pacientes = pacienteService.buscarTodosLosPacientes();
