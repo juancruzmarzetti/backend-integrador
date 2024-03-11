@@ -1,6 +1,6 @@
 package com.me.odontologo;
 
-import com.me.odontologo.dao.DB;
+import com.me.odontologo.repository.DB;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

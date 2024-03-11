@@ -1,15 +1,15 @@
-package com.me.odontologo.dao.implementations;
+package com.me.odontologo.repository.implementations;
 
-import com.me.odontologo.dao.DB;
-import com.me.odontologo.dao.IDao;
+import com.me.odontologo.repository.DB;
+import com.me.odontologo.repository.IRepository;
 import com.me.odontologo.model.Domicilio;
 import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DomicilioDAOH2 implements IDao<Domicilio> {
-    private static final Logger LOGGER = Logger.getLogger(DomicilioDAOH2.class);
+public class DomicilioRepositoryH2 implements IRepository<Domicilio> {
+    private static final Logger LOGGER = Logger.getLogger(DomicilioRepositoryH2.class);
     private static final String INSERT_DOMICILIO = "INSERT INTO DOMICILIOS (CALLE, NUMERO, LOCALIDAD, PROVINCIA) VALUES (?,?,?,?)";
     private static final String SELECT_ALL = "SELECT * FROM DOMICILIOS";
     private static final String SELECT_BY_ID = "SELECT * FROM DOMICILIOS WHERE ID = ?";

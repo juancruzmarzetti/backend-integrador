@@ -1,7 +1,7 @@
-package com.me.odontologo.dao.implementations;
+package com.me.odontologo.repository.implementations;
 
-import com.me.odontologo.dao.DB;
-import com.me.odontologo.dao.IDao;
+import com.me.odontologo.repository.DB;
+import com.me.odontologo.repository.IRepository;
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.model.Paciente;
 import org.apache.log4j.Logger;
@@ -9,8 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PacienteDAOH2 implements IDao<Paciente> {
-    private static final Logger LOGGER = Logger.getLogger(PacienteDAOH2.class);
+public class PacienteRepositoryH2 implements IRepository<Paciente> {
+    private static final Logger LOGGER = Logger.getLogger(PacienteRepositoryH2.class);
     private static final String DB_CONFIG_JDBC_DRIVER = "org.h2.Driver";
     private static final String DB_CONFIG_URL = "jdbc:h2:~/mydaodb";
     private static final String DB_CONFIG_USER = "sa";
@@ -105,7 +105,7 @@ public class PacienteDAOH2 implements IDao<Paciente> {
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(SQL_SELECT_PACIENTES);
             while(rs.next()){
-                DomicilioDAOH2 domicilioDaoH2 = new DomicilioDAOH2();
+                DomicilioRepositoryH2 domicilioDaoH2 = new DomicilioRepositoryH2();
                 Domicilio domicilio = domicilioDaoH2.buscar(rs.getInt(4));
 
                 Paciente paciente = new Paciente(
@@ -146,7 +146,7 @@ public class PacienteDAOH2 implements IDao<Paciente> {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
 
-            DomicilioDAOH2 domicilioDaoH2 = new DomicilioDAOH2();
+            DomicilioRepositoryH2 domicilioDaoH2 = new DomicilioRepositoryH2();
 
             while(rs.next()){
                 Domicilio domicilio = domicilioDaoH2.buscar(rs.getInt(4));

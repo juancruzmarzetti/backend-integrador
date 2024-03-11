@@ -1,8 +1,8 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.repository;
 
 import java.util.List;
 
-public interface IDao<T> {
+public interface IRepository<T> {
     List<T> buscarTodos();
     T buscar(int id);
     T guardar(T t);

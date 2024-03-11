@@ -1,4 +1,4 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.repository;
 
 import com.me.odontologo.model.Odontologo;
 import com.me.odontologo.services.implementations.OdontologoService;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
-class OdontologoDAOH2Test {
+class OdontologoRepositoryH2Test {
 
     @Test
     public void guardarUno(){

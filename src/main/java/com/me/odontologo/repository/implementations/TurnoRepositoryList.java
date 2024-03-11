@@ -1,12 +1,12 @@
-package com.me.odontologo.dao.implementations;
+package com.me.odontologo.repository.implementations;
 
-import com.me.odontologo.dao.IDao;
+import com.me.odontologo.repository.IRepository;
 import com.me.odontologo.model.Turno;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TurnoDAOList implements IDao<Turno> {
+public class TurnoRepositoryList implements IRepository<Turno> {
     private List<Turno> turnoList = new ArrayList<>();
     @Override
     public List<Turno> buscarTodos() {

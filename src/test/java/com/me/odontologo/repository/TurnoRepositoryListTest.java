@@ -1,4 +1,4 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.repository;
 
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.model.Odontologo;
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-class TurnoDAOListTest {
+class TurnoRepositoryListTest {
     @Test
     public void buscarUno(){
         Domicilio domicilio1 = new Domicilio("Pompeya", 1509, "Gran Pompeya",

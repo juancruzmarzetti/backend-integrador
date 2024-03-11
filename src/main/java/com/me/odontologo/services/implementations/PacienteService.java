@@ -1,7 +1,7 @@
 package com.me.odontologo.services.implementations;
 
-import com.me.odontologo.dao.IDao;
-import com.me.odontologo.dao.implementations.PacienteDAOH2;
+import com.me.odontologo.repository.IRepository;
+import com.me.odontologo.repository.implementations.PacienteRepositoryH2;
 import com.me.odontologo.model.Paciente;
 import com.me.odontologo.services.IPacienteService;
 import org.springframework.stereotype.Service;
@@ -9,9 +9,9 @@ import java.util.List;
 
 @Service
 public class PacienteService implements IPacienteService {
-    private IDao<Paciente> pacienteDAO;
+    private IRepository<Paciente> pacienteDAO;
     public PacienteService() {
-        pacienteDAO = new PacienteDAOH2();
+        pacienteDAO = new PacienteRepositoryH2();
     }
 
     @Override

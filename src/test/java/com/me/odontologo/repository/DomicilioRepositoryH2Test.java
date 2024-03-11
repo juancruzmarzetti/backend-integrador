@@ -1,4 +1,4 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.repository;
 
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.services.implementations.DomicilioService;
@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-class DomicilioDAOH2Test {
+class DomicilioRepositoryH2Test {
     @Test
     public void guardarUno(){
         DB.crearTablas();

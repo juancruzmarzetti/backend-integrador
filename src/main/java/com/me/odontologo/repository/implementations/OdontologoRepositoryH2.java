@@ -1,15 +1,15 @@
-package com.me.odontologo.dao.implementations;
+package com.me.odontologo.repository.implementations;
 
-import com.me.odontologo.dao.DB;
-import com.me.odontologo.dao.IDao;
+import com.me.odontologo.repository.DB;
+import com.me.odontologo.repository.IRepository;
 import com.me.odontologo.model.Odontologo;
 import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OdontologoDAOH2 implements IDao<Odontologo> {
-    private static final Logger LOGGER = Logger.getLogger(OdontologoDAOH2.class);
+public class OdontologoRepositoryH2 implements IRepository<Odontologo> {
+    private static final Logger LOGGER = Logger.getLogger(OdontologoRepositoryH2.class);
     private static final String STMT_BUSCAR_TODOS = "SELECT * FROM ODONTOLOGOS;";
     private static final String PSTMT_BUSCAR = "SELECT * FROM ODONTOLOGOS WHERE ID = ?;";
     private static final String PSTMT_ELIMINAR = "DELETE FROM ODONTOLOGOS WHERE ID = ?";

@@ -1,7 +1,7 @@
 package com.me.odontologo.services.implementations;
 
-import com.me.odontologo.dao.IDao;
-import com.me.odontologo.dao.implementations.TurnoDAOList;
+import com.me.odontologo.repository.IRepository;
+import com.me.odontologo.repository.implementations.TurnoRepositoryList;
 import com.me.odontologo.model.Turno;
 import com.me.odontologo.services.ITurnoService;
 import org.springframework.stereotype.Service;
@@ -9,10 +9,10 @@ import java.util.List;
 
 @Service
 public class TurnoService implements ITurnoService {
-    private IDao<Turno> turnoDAO;
+    private IRepository<Turno> turnoDAO;
 
     public TurnoService() {
-        turnoDAO = new TurnoDAOList();
+        turnoDAO = new TurnoRepositoryList();
     }
 
     @Override

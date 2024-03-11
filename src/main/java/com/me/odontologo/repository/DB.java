@@ -1,4 +1,4 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.repository;
 
 import org.apache.log4j.Logger;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.repository;
 
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.model.Paciente;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
 
-class PacienteDAOH2Test {
+class PacienteRepositoryH2Test {
     @Test
     public void guardarUno(){
         DB.crearTablas();
