@@ -51,17 +51,19 @@ public class OdontologoDAOH2 implements IDao<Odontologo> {
     public Odontologo buscar(int id) {
         Connection c = null;
         PreparedStatement pstmt = null;
-        Odontologo odontologo = new Odontologo();
+        Odontologo odontologo = null;
         try{
             c = DB.getConnection();
             pstmt = c.prepareStatement(PSTMT_BUSCAR);
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                odontologo.setId(rs.getInt(1));
-                odontologo.setMatricula(rs.getInt(2));
-                odontologo.setNombre(rs.getString(3));
-                odontologo.setApellido(rs.getString(4));
+                odontologo = new Odontologo(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4)
+                );
             }
             rs.close();
         }catch(Exception e){
