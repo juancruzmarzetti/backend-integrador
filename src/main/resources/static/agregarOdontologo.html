@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/agregarOdontologo.js"></script>
     <title>Agregar Odontologo</title>
 </head>
 <body>
     <h1>Agrega un Odontologo</h1>
-    <form>
+    <form id="form-agregar-odontologo">
         <label for="matricula-odontologo">Matricula</label>
         <input
                 type="number"
@@ -31,5 +33,6 @@
                 required/>
         <button type="submit">Agregar Odontologo</button>
     </form>
+    <div id="response-div"> </div>
 </body>
 </html>

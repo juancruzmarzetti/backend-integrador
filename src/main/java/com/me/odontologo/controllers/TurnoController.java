@@ -7,6 +7,7 @@ import com.me.odontologo.services.ITurnoService;
 import com.me.odontologo.services.implementations.OdontologoService;
 import com.me.odontologo.services.implementations.PacienteService;
 import com.me.odontologo.services.implementations.TurnoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,10 +31,13 @@ public class TurnoController {
     @PostMapping("/agregar")
     public ResponseEntity<Turno> agregar(@RequestBody Turno turno){
         ResponseEntity<Turno> response;
-        if(){
+        if (odontologoService.buscar(turno.getOdontologo().getId()) != null &&
+                pacienteService.buscar(turno.getPaciente().getId()) != null) {
 
+            response = ResponseEntity.ok(turnoService.guardarTurno(turno));
+        } else {
+            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
         return response;
     }
 }
