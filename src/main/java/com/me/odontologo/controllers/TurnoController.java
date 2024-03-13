@@ -7,6 +7,7 @@ import com.me.odontologo.services.ITurnoService;
 import com.me.odontologo.services.implementations.OdontologoService;
 import com.me.odontologo.services.implementations.PacienteService;
 import com.me.odontologo.services.implementations.TurnoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,8 @@ public class TurnoController {
     private ITurnoService turnoService;
     private IOdontologoService odontologoService;
     private IPacienteService pacienteService;
+    
+    @Autowired
     public TurnoController(PacienteService pacienteService,
                            OdontologoService odontologoService,
                            TurnoService turnoService){

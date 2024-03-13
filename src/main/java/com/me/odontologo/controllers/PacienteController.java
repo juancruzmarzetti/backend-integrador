@@ -6,6 +6,7 @@ import com.me.odontologo.services.IDomicilioService;
 import com.me.odontologo.services.IPacienteService;
 import com.me.odontologo.services.implementations.DomicilioService;
 import com.me.odontologo.services.implementations.PacienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class PacienteController {
     private IPacienteService pacienteService;
     private IDomicilioService domicilioService;
 
+    @Autowired
     public PacienteController(PacienteService pacienteService, DomicilioService domicilioService) {
         this.pacienteService = pacienteService;
         this.domicilioService = domicilioService;

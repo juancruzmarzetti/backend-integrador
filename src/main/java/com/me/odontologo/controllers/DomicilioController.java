@@ -3,6 +3,7 @@ package com.me.odontologo.controllers;
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.services.IDomicilioService;
 import com.me.odontologo.services.implementations.DomicilioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import java.util.List;
 @RequestMapping("domicilios")
 public class DomicilioController {
     private IDomicilioService domicilioService;
+
+    @Autowired
     public DomicilioController(DomicilioService domicilioService){
         this.domicilioService = domicilioService;
     };
