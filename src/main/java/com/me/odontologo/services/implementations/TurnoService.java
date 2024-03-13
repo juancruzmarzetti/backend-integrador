@@ -4,6 +4,7 @@ import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.TurnoDAOList;
 import com.me.odontologo.model.Turno;
 import com.me.odontologo.services.ITurnoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -11,8 +12,9 @@ import java.util.List;
 public class TurnoService implements ITurnoService {
     private IDao<Turno> turnoDAO;
 
-    public TurnoService() {
-        turnoDAO = new TurnoDAOList();
+    @Autowired
+    public TurnoService(TurnoDAOList turnoDAO) {
+        this.turnoDAO = turnoDAO;
     }
 
     @Override

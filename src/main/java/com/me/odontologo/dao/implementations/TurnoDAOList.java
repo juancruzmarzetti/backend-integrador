@@ -2,12 +2,21 @@ package com.me.odontologo.dao.implementations;
 
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.model.Turno;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class TurnoDAOList implements IDao<Turno> {
-    private List<Turno> turnoList = new ArrayList<>();
+    private List<Turno> turnoList;
+
+    @Autowired
+    public TurnoDAOList() {
+        this.turnoList = new ArrayList<>();
+    }
+
     @Override
     public List<Turno> buscarTodos() {
         return turnoList;

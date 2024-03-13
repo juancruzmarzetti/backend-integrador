@@ -1,34 +1,42 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.services.implementations;
 
+import com.me.odontologo.dao.DB;
 import com.me.odontologo.model.Domicilio;
-import com.me.odontologo.services.implementations.DomicilioService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-class DomicilioDAOH2Test {
-    @Test
-    public void guardarUno(){
+import static org.junit.jupiter.api.Assertions.*;
+@SpringBootTest
+class DomicilioServiceTest {
+    @Autowired
+    private DomicilioService domicilioService;
+    @BeforeEach
+    void setUp() {
         DB.crearTablas();
+    }
 
+    @Test
+    void guardarDomicilio() {
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
 
-        DomicilioService domicilioService = new DomicilioService();
         Domicilio domicilioGuardado = domicilioService.guardarDomicilio(domicilio1);
 
         Assertions.assertEquals(domicilio1.getNumero(), domicilioGuardado.getNumero());
     }
+
     @Test
-    public void buscarTodos() {
-        DB.crearTablas();
+    void buscarTodosLosDomicilios() {
         // para que este test funcione
         // no se deben insertar datos manualmente en las tablas
         // desde el método "crearTablas" de la clase DB
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
         Domicilio domicilio2 = new Domicilio("Av. de Mayo", 5678, "La Plata", "Buenos Aires");
 
-        DomicilioService domicilioService = new DomicilioService();
         domicilioService.guardarDomicilio(domicilio1);
         domicilioService.guardarDomicilio(domicilio2);
 
@@ -37,15 +45,10 @@ class DomicilioDAOH2Test {
     }
 
     @Test
-    public void eliminarUno() {
-        DB.crearTablas();
-        // para que este test funcione
-        // no se deben insertar datos manualmente en las tablas
-        // desde el método "crearTablas" de la clase DB
+    void eliminarDomicilio() {
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
         Domicilio domicilio2 = new Domicilio("Av. de Mayo", 5678, "La Plata", "Buenos Aires");
 
-        DomicilioService domicilioService = new DomicilioService();
         Domicilio domicilioAEliminar = domicilioService.guardarDomicilio(domicilio1);
         domicilioService.guardarDomicilio(domicilio2);
         domicilioService.eliminarDomicilio(domicilioAEliminar.getId());
@@ -55,12 +58,11 @@ class DomicilioDAOH2Test {
     }
 
     @Test
-    public void buscarUno() {
+    void buscarDomicilio() {
         DB.crearTablas();
 
         Domicilio domicilio1 = new Domicilio("Av. Rivadavia", 1234, "Buenos Aires", "CABA");
 
-        DomicilioService domicilioService = new DomicilioService();
         Domicilio domicilioABuscar = domicilioService.guardarDomicilio(domicilio1);
         Domicilio domicilioBuscado = domicilioService.buscarDomicilio(domicilioABuscar.getId());
 

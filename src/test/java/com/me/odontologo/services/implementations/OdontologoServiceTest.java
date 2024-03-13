@@ -1,52 +1,41 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.services.implementations;
 
+import com.me.odontologo.dao.DB;
 import com.me.odontologo.model.Odontologo;
-import com.me.odontologo.services.implementations.OdontologoService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import java.util.List;
 
-class OdontologoDAOH2Test {
+import static org.junit.jupiter.api.Assertions.*;
+@SpringBootTest
+class OdontologoServiceTest {
+
+    @Autowired
+    private OdontologoService odontologoService;
+
+    @BeforeEach
+    void setUp() {
+        DB.crearTablas();
+    }
 
     @Test
-    public void guardarUno(){
-        DB.crearTablas();
-
+    void guardarOdontologo() {
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
 
-        OdontologoService odontologoService = new OdontologoService();
         Odontologo odontologoGuardado = odontologoService.guardarOdontologo(odontologo1);
 
         Assertions.assertEquals(odontologo1.getMatricula(), odontologoGuardado.getMatricula());
     }
 
     @Test
-    public void buscarTodos() {
-        DB.crearTablas();
-        // para que este test funcione
-        // no se deben insertar datos manualmente en las tablas
-        // desde el método "crearTablas" de la clase DB
+    void eliminarOdontologo() {
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
         Odontologo odontologo2 = new Odontologo(2, "Lionel", "Messi");
 
-        OdontologoService odontologoService = new OdontologoService();
-        odontologoService.guardarOdontologo(odontologo1);
-        odontologoService.guardarOdontologo(odontologo2);
-
-        List<Odontologo> odontologos = odontologoService.buscarTodosLosOdontologos();
-        Assertions.assertEquals(2, odontologos.size());
-    }
-
-    @Test
-    public void eliminarUno() {
-        DB.crearTablas();
-        // para que este test funcione
-        // no se deben insertar datos manualmente en las tablas
-        // desde el método "crearTablas" de la clase DB
-        Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
-        Odontologo odontologo2 = new Odontologo(2, "Lionel", "Messi");
-
-        OdontologoService odontologoService = new OdontologoService();
         Odontologo odontologoAEliminar = odontologoService.guardarOdontologo(odontologo1);
         odontologoService.guardarOdontologo(odontologo2);
         odontologoService.eliminarOdontologo(odontologoAEliminar.getId());
@@ -56,12 +45,21 @@ class OdontologoDAOH2Test {
     }
 
     @Test
-    public void buscarUno() {
-        DB.crearTablas();
+    void buscarTodosLosOdontologos() {
+        Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
+        Odontologo odontologo2 = new Odontologo(2, "Lionel", "Messi");
 
+        odontologoService.guardarOdontologo(odontologo1);
+        odontologoService.guardarOdontologo(odontologo2);
+
+        List<Odontologo> odontologos = odontologoService.buscarTodosLosOdontologos();
+        Assertions.assertEquals(2, odontologos.size());
+    }
+
+    @Test
+    void buscar() {
         Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
 
-        OdontologoService odontologoService = new OdontologoService();
         Odontologo odontologoABuscar = odontologoService.guardarOdontologo(odontologo1);
         Odontologo odontologoBuscado = odontologoService.buscar(odontologoABuscar.getId());
 

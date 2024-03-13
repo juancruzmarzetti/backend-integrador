@@ -4,10 +4,13 @@ import com.me.odontologo.dao.DB;
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.model.Domicilio;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class DomicilioDAOH2 implements IDao<Domicilio> {
     private static final Logger LOGGER = Logger.getLogger(DomicilioDAOH2.class);
     private static final String INSERT_DOMICILIO = "INSERT INTO DOMICILIOS (CALLE, NUMERO, LOCALIDAD, PROVINCIA) VALUES (?,?,?,?)";

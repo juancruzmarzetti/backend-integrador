@@ -4,14 +4,16 @@ import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.PacienteDAOH2;
 import com.me.odontologo.model.Paciente;
 import com.me.odontologo.services.IPacienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class PacienteService implements IPacienteService {
     private IDao<Paciente> pacienteDAO;
-    public PacienteService() {
-        pacienteDAO = new PacienteDAOH2();
+    @Autowired
+    public PacienteService(PacienteDAOH2 pacienteDAOH2) {
+        this.pacienteDAO = pacienteDAOH2;
     }
 
     @Override

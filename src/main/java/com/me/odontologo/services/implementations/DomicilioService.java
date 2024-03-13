@@ -4,6 +4,7 @@ import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.DomicilioDAOH2;
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.services.IDomicilioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +12,9 @@ import java.util.List;
 @Service
 public class DomicilioService implements IDomicilioService {
     private IDao<Domicilio> domicilioDAO;
-    public DomicilioService() {
-        domicilioDAO = new DomicilioDAOH2();
+    @Autowired
+    public DomicilioService(DomicilioDAOH2 domicilioDAOH2) {
+        this.domicilioDAO = domicilioDAOH2;
     }
 
     @Override

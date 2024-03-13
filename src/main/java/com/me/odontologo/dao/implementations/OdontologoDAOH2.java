@@ -4,10 +4,13 @@ import com.me.odontologo.dao.DB;
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.model.Odontologo;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class OdontologoDAOH2 implements IDao<Odontologo> {
     private static final Logger LOGGER = Logger.getLogger(OdontologoDAOH2.class);
     private static final String STMT_BUSCAR_TODOS = "SELECT * FROM ODONTOLOGOS;";

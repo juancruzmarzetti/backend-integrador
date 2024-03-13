@@ -5,10 +5,13 @@ import com.me.odontologo.dao.IDao;
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.model.Paciente;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class PacienteDAOH2 implements IDao<Paciente> {
     private static final Logger LOGGER = Logger.getLogger(PacienteDAOH2.class);
     private static final String DB_CONFIG_JDBC_DRIVER = "org.h2.Driver";

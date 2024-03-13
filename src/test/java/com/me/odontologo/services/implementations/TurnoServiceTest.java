@@ -1,20 +1,35 @@
-package com.me.odontologo.dao;
+package com.me.odontologo.services.implementations;
 
 import com.me.odontologo.model.Domicilio;
 import com.me.odontologo.model.Odontologo;
 import com.me.odontologo.model.Paciente;
 import com.me.odontologo.model.Turno;
-import com.me.odontologo.services.implementations.TurnoService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-class TurnoDAOListTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class TurnoServiceTest {
+
+    @Autowired
+    private TurnoService turnoService;
+
+    @BeforeEach
+    void setUp(){
+        turnoService.eliminarTurno(1);
+        turnoService.eliminarTurno(2);
+    }
+
     @Test
-    public void buscarUno(){
+    void guardarTurno() {
         Domicilio domicilio1 = new Domicilio("Pompeya", 1509, "Gran Pompeya",
                 "Catamarca"
         );
@@ -22,20 +37,40 @@ class TurnoDAOListTest {
         Paciente paciente1 = new Paciente("jorge", "lopez junior", domicilio1, 12121212, LocalDate.of(2023, 7, 15),
                 "jorgitojunior", "123"
         );
-        Turno turno = new Turno(1, odontologo1, paciente1,
+        Turno turno1 = new Turno(1, odontologo1, paciente1,
                 LocalDate.of(2023,5, 15),
                 LocalTime.of(15, 30, 0)
         );
 
-        TurnoService turnoService = new TurnoService();
-        turnoService.guardarTurno(turno);
-        Turno turnoBuscado = turnoService.buscar(turno.getId());
+        turnoService.guardarTurno(turno1);
+        Turno turnoBuscado = turnoService.buscar(turno1.getId());
 
-        Assertions.assertEquals(turno.getId(), turnoBuscado.getId());
+        Assertions.assertEquals(turno1.getId(), turnoBuscado.getId());
     }
 
     @Test
-    public void buscarTodos(){
+    void eliminarTurno() {
+        Domicilio domicilio1 = new Domicilio("Pompeya", 1509, "Gran Pompeya",
+                "Catamarca"
+        );
+        Odontologo odontologo1 = new Odontologo(523124, "jorge", "lopez");
+        Paciente paciente1 = new Paciente("jorge", "lopez junior", domicilio1, 12121212, LocalDate.of(2023, 7, 15),
+                "jorgitojunior", "123"
+        );
+        Turno turno1 = new Turno(1, odontologo1, paciente1,
+                LocalDate.of(2023,5, 15),
+                LocalTime.of(15, 30, 0)
+        );
+
+        turnoService.guardarTurno(turno1);
+        turnoService.eliminarTurno(turno1.getId());
+        List<Turno> turnos = turnoService.buscarTodosLosTurnos();
+
+        Assertions.assertEquals(0, turnos.size());
+    }
+
+    @Test
+    void buscarTodosLosTurnos() {
         Domicilio domicilio1 = new Domicilio("Pompeya", 1509, "Gran Pompeya",
                 "Catamarca"
         );
@@ -59,15 +94,15 @@ class TurnoDAOListTest {
                 LocalTime.of(22, 32, 2)
         );
 
-        TurnoService turnoService = new TurnoService();
         turnoService.guardarTurno(turno1);
         turnoService.guardarTurno(turno2);
         List<Turno> turnos = turnoService.buscarTodosLosTurnos();
 
         Assertions.assertEquals(2, turnos.size());
     }
+
     @Test
-    public void eliminarUno(){
+    void buscar() {
         Domicilio domicilio1 = new Domicilio("Pompeya", 1509, "Gran Pompeya",
                 "Catamarca"
         );
@@ -75,36 +110,14 @@ class TurnoDAOListTest {
         Paciente paciente1 = new Paciente("jorge", "lopez junior", domicilio1, 12121212, LocalDate.of(2023, 7, 15),
                 "jorgitojunior", "123"
         );
-        Turno turno1 = new Turno(1, odontologo1, paciente1,
+        Turno turno = new Turno(1, odontologo1, paciente1,
                 LocalDate.of(2023,5, 15),
                 LocalTime.of(15, 30, 0)
         );
 
-        TurnoService turnoService = new TurnoService();
-        turnoService.guardarTurno(turno1);
-        turnoService.eliminarTurno(turno1.getId());
-        List<Turno> turnos = turnoService.buscarTodosLosTurnos();
+        turnoService.guardarTurno(turno);
+        Turno turnoBuscado = turnoService.buscar(turno.getId());
 
-        Assertions.assertEquals(0, turnos.size());
-    }
-    @Test
-    public void guardar(){
-        Domicilio domicilio1 = new Domicilio("Pompeya", 1509, "Gran Pompeya",
-                "Catamarca"
-        );
-        Odontologo odontologo1 = new Odontologo(523124, "jorge", "lopez");
-        Paciente paciente1 = new Paciente("jorge", "lopez junior", domicilio1, 12121212, LocalDate.of(2023, 7, 15),
-                "jorgitojunior", "123"
-        );
-        Turno turno1 = new Turno(1, odontologo1, paciente1,
-                LocalDate.of(2023,5, 15),
-                LocalTime.of(15, 30, 0)
-        );
-
-        TurnoService turnoService = new TurnoService();
-        turnoService.guardarTurno(turno1);
-        Turno turnoBuscado = turnoService.buscar(turno1.getId());
-
-        Assertions.assertEquals(turno1.getId(), turnoBuscado.getId());
+        Assertions.assertEquals(turno.getId(), turnoBuscado.getId());
     }
 }
