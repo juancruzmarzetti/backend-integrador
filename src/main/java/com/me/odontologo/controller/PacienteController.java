@@ -1,11 +1,8 @@
-package com.me.odontologo.controllers;
+package com.me.odontologo.controller;
 
-import com.me.odontologo.model.Odontologo;
-import com.me.odontologo.model.Paciente;
-import com.me.odontologo.services.IDomicilioService;
-import com.me.odontologo.services.IPacienteService;
-import com.me.odontologo.services.implementations.DomicilioService;
-import com.me.odontologo.services.implementations.PacienteService;
+import com.me.odontologo.entity.Paciente;
+import com.me.odontologo.service.IPacienteService;
+import com.me.odontologo.service.implementation.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

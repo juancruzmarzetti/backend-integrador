@@ -1,12 +1,18 @@
-package com.me.odontologo.model;
+package com.me.odontologo.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "domicilios")
 public class Domicilio {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String calle;
     private Integer numero;
     private String localidad;
     private String provincia;
-
+    /*
     public Domicilio(Integer id, String calle, Integer numero, String localidad, String provincia) {
         this.id = id;
         this.calle = calle;
@@ -22,16 +28,12 @@ public class Domicilio {
         this.localidad = localidad;
         this.provincia = provincia;
     }
-
+    */
     public Domicilio() {
     }
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getCalle() {

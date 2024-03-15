@@ -1,14 +1,20 @@
-package com.me.odontologo.model;
+package com.me.odontologo.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "odontologos")
 public class Odontologo {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private int matricula;
     private String nombre;
     private String apellido;
 
     public Odontologo(){};
 
-    public Odontologo(int id, int matricula, String nombre, String apellido) {
+    /*public Odontologo(int id, int matricula, String nombre, String apellido) {
         this.id = id;
         this.matricula = matricula;
         this.nombre = nombre;
@@ -19,7 +25,7 @@ public class Odontologo {
         this.matricula = matricula;
         this.nombre = nombre;
         this.apellido = apellido;
-    }
+    }*/
 
     public int getMatricula() {
         return matricula;
@@ -41,8 +47,5 @@ public class Odontologo {
     }
     public int getId() {
         return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
 }

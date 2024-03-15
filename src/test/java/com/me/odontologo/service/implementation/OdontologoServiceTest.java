@@ -1,7 +1,7 @@
-package com.me.odontologo.services.implementations;
+package com.me.odontologo.service.implementation;
 
 import com.me.odontologo.dao.DB;
-import com.me.odontologo.model.Odontologo;
+import com.me.odontologo.entity.Odontologo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class OdontologoServiceTest {
 

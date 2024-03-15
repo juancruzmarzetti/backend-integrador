@@ -1,14 +1,20 @@
-package com.me.odontologo.model;
+package com.me.odontologo.entity;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+@Entity
+@Table(name = "turnos")
 public class Turno {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private Odontologo odontologo;
     private Paciente paciente;
     private LocalDate fecha;
     private LocalTime hora;
     public Turno(){};
+    /*
     public Turno(int id, Odontologo odontologo, Paciente paciente, LocalDate fecha, LocalTime hora) {
         this.id = id;
         this.odontologo = odontologo;
@@ -16,12 +22,9 @@ public class Turno {
         this.fecha = fecha;
         this.hora = hora;
     }
+    */
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDate getFecha() {

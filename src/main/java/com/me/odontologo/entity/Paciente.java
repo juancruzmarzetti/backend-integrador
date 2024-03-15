@@ -1,9 +1,14 @@
-package com.me.odontologo.model;
+package com.me.odontologo.entity;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
+@Entity
+@Table(name = "pacientes")
 public class Paciente {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nombre;
     private String apellido;
     private Domicilio domicilio;
@@ -12,6 +17,7 @@ public class Paciente {
     private String usuario;
     private String password;
     public Paciente(){};
+    /*
     public Paciente(String nombre, String apellido, Domicilio domicilio,
                     Integer dni, LocalDate fechaDeAlta, String usuario, String password) {
         this.nombre = nombre;
@@ -32,7 +38,7 @@ public class Paciente {
         this.fechaDeAlta = fechaDeAlta;
         this.usuario = usuario;
         this.password = password;
-    }
+    }*/
     public int getId() {
         return id;
     }
@@ -57,9 +63,7 @@ public class Paciente {
     public String getPassword() {
         return password;
     }
-    public void setId(Integer id) {
-        this.id = id;
-    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

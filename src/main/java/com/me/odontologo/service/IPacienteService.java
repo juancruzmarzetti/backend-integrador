@@ -1,6 +1,6 @@
-package com.me.odontologo.services;
+package com.me.odontologo.service;
 
-import com.me.odontologo.model.Paciente;
+import com.me.odontologo.entity.Paciente;
 import java.util.List;
 
 public interface IPacienteService {

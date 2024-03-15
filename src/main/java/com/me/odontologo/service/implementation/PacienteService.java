@@ -1,9 +1,9 @@
-package com.me.odontologo.services.implementations;
+package com.me.odontologo.service.implementation;
 
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.PacienteDAOH2;
-import com.me.odontologo.model.Paciente;
-import com.me.odontologo.services.IPacienteService;
+import com.me.odontologo.entity.Paciente;
+import com.me.odontologo.service.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

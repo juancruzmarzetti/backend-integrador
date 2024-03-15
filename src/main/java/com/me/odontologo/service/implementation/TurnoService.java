@@ -1,9 +1,9 @@
-package com.me.odontologo.services.implementations;
+package com.me.odontologo.service.implementation;
 
 import com.me.odontologo.dao.IDao;
 import com.me.odontologo.dao.implementations.TurnoDAOList;
-import com.me.odontologo.model.Turno;
-import com.me.odontologo.services.ITurnoService;
+import com.me.odontologo.entity.Turno;
+import com.me.odontologo.service.ITurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

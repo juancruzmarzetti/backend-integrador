@@ -1,10 +1,9 @@
-package com.me.odontologo.controllers;
+package com.me.odontologo.controller;
 
-import com.me.odontologo.model.Odontologo;
-import com.me.odontologo.services.IOdontologoService;
-import com.me.odontologo.services.implementations.OdontologoService;
+import com.me.odontologo.entity.Odontologo;
+import com.me.odontologo.service.IOdontologoService;
+import com.me.odontologo.service.implementation.OdontologoService;
 // import org.springframework.stereotype.Controller;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

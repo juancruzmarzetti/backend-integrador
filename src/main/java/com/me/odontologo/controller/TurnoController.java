@@ -1,12 +1,12 @@
-package com.me.odontologo.controllers;
+package com.me.odontologo.controller;
 
-import com.me.odontologo.model.Turno;
-import com.me.odontologo.services.IOdontologoService;
-import com.me.odontologo.services.IPacienteService;
-import com.me.odontologo.services.ITurnoService;
-import com.me.odontologo.services.implementations.OdontologoService;
-import com.me.odontologo.services.implementations.PacienteService;
-import com.me.odontologo.services.implementations.TurnoService;
+import com.me.odontologo.entity.Turno;
+import com.me.odontologo.service.IOdontologoService;
+import com.me.odontologo.service.IPacienteService;
+import com.me.odontologo.service.ITurnoService;
+import com.me.odontologo.service.implementation.OdontologoService;
+import com.me.odontologo.service.implementation.PacienteService;
+import com.me.odontologo.service.implementation.TurnoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

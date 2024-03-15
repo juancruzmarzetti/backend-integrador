@@ -1,9 +1,9 @@
-package com.me.odontologo.services.implementations;
+package com.me.odontologo.service.implementation;
 
-import com.me.odontologo.model.Domicilio;
-import com.me.odontologo.model.Odontologo;
-import com.me.odontologo.model.Paciente;
-import com.me.odontologo.model.Turno;
+import com.me.odontologo.entity.Domicilio;
+import com.me.odontologo.entity.Odontologo;
+import com.me.odontologo.entity.Paciente;
+import com.me.odontologo.entity.Turno;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TurnoServiceTest {
