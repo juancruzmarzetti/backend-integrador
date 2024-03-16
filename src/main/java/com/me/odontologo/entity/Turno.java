@@ -17,7 +17,9 @@ public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne
     private Odontologo odontologo;
+    @ManyToOne
     private Paciente paciente;
     private LocalDate fecha;
     private LocalTime hora;

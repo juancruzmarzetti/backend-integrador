@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "odontologos")
 @Getter
@@ -19,4 +22,6 @@ public class Odontologo {
     private int matricula;
     private String nombre;
     private String apellido;
+    @OneToMany(mappedBy = "odontologo", cascade = CascadeType.ALL)
+    private Set<Turno> turnoSet = new HashSet<>();
 }

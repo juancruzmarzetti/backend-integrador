@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "pacientes")
 @Getter
@@ -26,4 +29,6 @@ public class Paciente {
     private LocalDate fechaDeAlta;
     private String usuario;
     private String password;
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private Set<Turno> turnoSet = new HashSet<>();
 }

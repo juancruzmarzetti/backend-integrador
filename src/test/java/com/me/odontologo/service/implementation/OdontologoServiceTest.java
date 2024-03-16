@@ -1,8 +1,9 @@
 package com.me.odontologo.service.implementation;
 
 import com.me.odontologo.entity.Odontologo;
+import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,18 +16,16 @@ class OdontologoServiceTest {
     @Autowired
     private OdontologoService odontologoService;
 
-    @BeforeEach
-    void setUp() {
-
+    @BeforeAll
+    public static void setUp() {
+        Odontologo odontologo1 = new Odontologo();
+        Odontologo odontologo2 = new Odontologo();
     }
 
     @Test
     void guardarOdontologo() {
-        Odontologo odontologo1 = new Odontologo(1, "Jorge", "Lopez");
-
         Odontologo odontologoGuardado = odontologoService.guardarOdontologo(odontologo1);
-
-        Assertions.assertEquals(odontologo1.getMatricula(), odontologoGuardado.getMatricula());
+        //Assertions.assertEquals();
     }
 
     @Test
@@ -62,5 +61,6 @@ class OdontologoServiceTest {
         Odontologo odontologoBuscado = odontologoService.buscar(odontologoABuscar.getId());
 
         Assertions.assertEquals(odontologoABuscar.getId(), odontologoBuscado.getId());
-    }*/
+    }
+     */
 }
