@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("odontologos")
@@ -25,10 +26,10 @@ public class OdontologoController {
         return ResponseEntity.ok(odontologoService.buscarTodosLosOdontologos());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Odontologo> buscarOdontologo(@PathVariable int id) {
-        ResponseEntity<Odontologo> response;
-        Odontologo odontologoBuscado = odontologoService.buscar(id);
-        if(odontologoBuscado != null){
+    public ResponseEntity<Optional<Odontologo>> buscarOdontologo(@PathVariable Long id) {
+        ResponseEntity<Optional<Odontologo>> response;
+        Optional<Odontologo> odontologoBuscado = odontologoService.buscar(id);
+        if(odontologoBuscado.isPresent()){
             response = ResponseEntity.ok(odontologoBuscado);
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -40,7 +41,7 @@ public class OdontologoController {
     public ResponseEntity<Odontologo> agregar(@RequestBody Odontologo odontologo){
         ResponseEntity<Odontologo> response;
         Odontologo odontologoAgregado = odontologoService.guardarOdontologo(odontologo);
-        if(odontologoAgregado.getNombre() != null){
+        if(odontologoAgregado != null){
             response = ResponseEntity.ok(odontologoAgregado);
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -49,9 +50,9 @@ public class OdontologoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> eliminar(@PathVariable int id){
+    public ResponseEntity<HttpStatus> eliminar(@PathVariable Long id){
         ResponseEntity<HttpStatus> response;
-        if(odontologoService.buscar(id).getNombre() != null){
+        if(odontologoService.buscar(id).isPresent()){
             odontologoService.eliminarOdontologo(id);
             response = ResponseEntity.status(HttpStatus.OK).build();
         }else{

@@ -1,33 +1,35 @@
 package com.me.odontologo.service.implementation;
-import com.me.odontologo.dao.IDao;
-import com.me.odontologo.dao.implementations.OdontologoDAOH2;
+
 import com.me.odontologo.entity.Odontologo;
+import com.me.odontologo.repository.IOdontologoRepository;
 import com.me.odontologo.service.IOdontologoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class OdontologoService implements IOdontologoService {
-    private IDao<Odontologo> odontologoDAO;
+    private IOdontologoRepository odontologoRepository;
     @Autowired
-    public OdontologoService(OdontologoDAOH2 odontologoDAOH2) {
-        this.odontologoDAO = odontologoDAOH2;
+    public OdontologoService(IOdontologoRepository odontologoRepository) {
+        this.odontologoRepository = odontologoRepository;
     }
 
     @Override
     public Odontologo guardarOdontologo(Odontologo odontologo){
-        return odontologoDAO.guardar(odontologo);
+        return odontologoRepository.save(odontologo);
     }
     @Override
-    public void eliminarOdontologo(int id){
-        odontologoDAO.eliminar(id);
+    public void eliminarOdontologo(Long id){
+        odontologoRepository.deleteById(id);
     }
     @Override
     public List<Odontologo> buscarTodosLosOdontologos(){
-        return odontologoDAO.buscarTodos();
+        return odontologoRepository.findAll();
     }
     @Override
-    public Odontologo buscar(int id){
-        return odontologoDAO.buscar(id);
+    public Optional<Odontologo> buscar(Long id){
+        return odontologoRepository.findById(id);
     }
 }

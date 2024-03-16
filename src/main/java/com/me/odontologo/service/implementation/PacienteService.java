@@ -1,35 +1,35 @@
 package com.me.odontologo.service.implementation;
 
-import com.me.odontologo.dao.IDao;
-import com.me.odontologo.dao.implementations.PacienteDAOH2;
 import com.me.odontologo.entity.Paciente;
+import com.me.odontologo.repository.IPacienteRepository;
 import com.me.odontologo.service.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PacienteService implements IPacienteService {
-    private IDao<Paciente> pacienteDAO;
+    private IPacienteRepository pacienteRepository;
     @Autowired
-    public PacienteService(PacienteDAOH2 pacienteDAOH2) {
-        this.pacienteDAO = pacienteDAOH2;
+    public PacienteService(IPacienteRepository pacienteRepository) {
+        this.pacienteRepository = pacienteRepository;
     }
 
     @Override
     public Paciente guardarPaciente(Paciente paciente){
-        return pacienteDAO.guardar(paciente);
+        return pacienteRepository.save(paciente);
     }
     @Override
-    public void eliminarPaciente(int id){
-        pacienteDAO.eliminar(id);
+    public void eliminarPaciente(Long id){
+        pacienteRepository.deleteById(id);
     }
     @Override
     public List<Paciente> buscarTodosLosPacientes(){
-        return pacienteDAO.buscarTodos();
+        return pacienteRepository.findAll();
     }
     @Override
-    public Paciente buscar(int id){
-        return pacienteDAO.buscar(id);
+    public Optional<Paciente> buscar(Long id){
+        return pacienteRepository.findById(id);
     }
 }

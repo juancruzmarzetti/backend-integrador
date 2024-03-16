@@ -3,10 +3,11 @@ package com.me.odontologo.service;
 import com.me.odontologo.entity.Turno;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ITurnoService {
     Turno guardarTurno(Turno turno);
-    void eliminarTurno(int id);
+    void eliminarTurno(Long id);
     List<Turno> buscarTodosLosTurnos();
-    Turno buscar(int id);
+    Optional<Turno> buscar(Long id);
 }

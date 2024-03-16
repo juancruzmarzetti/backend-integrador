@@ -1,77 +1,23 @@
 package com.me.odontologo.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "domicilios")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String calle;
     private Integer numero;
     private String localidad;
     private String provincia;
-    /*
-    public Domicilio(Integer id, String calle, Integer numero, String localidad, String provincia) {
-        this.id = id;
-        this.calle = calle;
-        this.numero = numero;
-        this.localidad = localidad;
-        this.provincia = provincia;
-    }
-
-
-    public Domicilio(String calle, Integer numero, String localidad, String provincia) {
-        this.calle = calle;
-        this.numero = numero;
-        this.localidad = localidad;
-        this.provincia = provincia;
-    }
-    */
-    public Domicilio() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public void setCalle(String calle) {
-        this.calle = calle;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public String getLocalidad() {
-        return localidad;
-    }
-
-    public void setLocalidad(String localidad) {
-        this.localidad = localidad;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    @Override
-    public String toString() {
-        return "Domicilio con " +
-                "id=" + id + ", calle= " + calle + ", numero=" + numero + ", localidad='" + localidad +
-                ", provincia='" + provincia;
-    }
 }

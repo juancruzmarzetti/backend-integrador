@@ -2,10 +2,11 @@ package com.me.odontologo.service;
 
 import com.me.odontologo.entity.Paciente;
 import java.util.List;
+import java.util.Optional;
 
 public interface IPacienteService {
     Paciente guardarPaciente(Paciente paciente);
-    void eliminarPaciente(int id);
+    void eliminarPaciente(Long id);
     List<Paciente> buscarTodosLosPacientes();
-    Paciente buscar(int id);
+    Optional<Paciente> buscar(Long id);
 }
