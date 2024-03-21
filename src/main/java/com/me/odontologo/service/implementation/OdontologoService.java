@@ -18,6 +18,7 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public Odontologo guardarOdontologo(Odontologo odontologo){
+
         return odontologoRepository.save(odontologo);
     }
     @Override
