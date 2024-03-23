@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("pacientes")
+@RequestMapping("/pacientes")
 public class PacienteController {
     private IPacienteService pacienteService;
 
@@ -24,7 +24,14 @@ public class PacienteController {
 
     @GetMapping("/all")
     public ResponseEntity<List<Paciente>> getPacientes() {
-        return ResponseEntity.ok(pacienteService.buscarTodosLosPacientes());
+        ResponseEntity<List<Paciente>> response;
+        List<Paciente> pacientes = pacienteService.buscarTodosLosPacientes();
+        if(pacientes != null){
+            response = ResponseEntity.ok(pacienteService.buscarTodosLosPacientes());
+        }else {
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return response;
     }
 
     @GetMapping("/{id}")
@@ -40,11 +47,23 @@ public class PacienteController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Paciente> agregar(@RequestBody Paciente paciente){
-        ResponseEntity<Paciente> response;
-        Paciente pacienteAgregado = pacienteService.guardarPaciente(paciente);
-        if(pacienteAgregado != null){
+    public ResponseEntity<Optional<Paciente>> agregar(@RequestBody Paciente paciente){
+        ResponseEntity<Optional<Paciente>> response;
+        Optional<Paciente> pacienteAgregado = pacienteService.guardarPaciente(paciente);
+        if(pacienteAgregado.isPresent()){
             response = ResponseEntity.ok(pacienteAgregado);
+        }else{
+            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return response;
+    }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<Optional<Paciente>> actualizar(@RequestBody Paciente paciente){
+        ResponseEntity<Optional<Paciente>> response;
+        Optional<Paciente> pacienteActualizado = pacienteService.actualizarPaciente(paciente);
+        if(pacienteActualizado.isPresent()){
+            response = ResponseEntity.ok(pacienteActualizado);
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
@@ -54,8 +73,8 @@ public class PacienteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable Long id){
         ResponseEntity<HttpStatus> response;
-        if(pacienteService.buscar(id).isPresent()){
-            pacienteService.eliminarPaciente(id);
+        boolean siExiste = pacienteService.eliminarPaciente(id);
+        if(siExiste){
             response = ResponseEntity.status(HttpStatus.OK).build();
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
