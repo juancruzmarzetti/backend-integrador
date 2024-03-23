@@ -27,6 +27,18 @@ public class OdontologoController {
     public ResponseEntity<List<Odontologo>> getOdontologos() {
         return ResponseEntity.ok(odontologoService.buscarTodosLosOdontologos());
     }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<Odontologo> actualizarOdontologo(@RequestBody Odontologo odontologo){
+        ResponseEntity<Odontologo> response;
+        Odontologo odontologoActualizado = odontologoService.guardarOdontologo(odontologo);
+        if(odontologoActualizado != null){
+            response = ResponseEntity.ok(odontologoActualizado);
+        }else{
+            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return response;
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Odontologo>> buscarOdontologo(@PathVariable Long id) {
         ResponseEntity<Optional<Odontologo>> response;
