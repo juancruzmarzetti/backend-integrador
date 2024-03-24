@@ -10,5 +10,5 @@ public interface IPacienteService {
     Optional<PacienteResponseDTO> actualizarPaciente(Paciente paciente);
     boolean eliminarPaciente(Long id);
     List<PacienteResponseDTO> buscarTodosLosPacientes();
-    Optional<Paciente> buscar(Long id);
+    Optional<PacienteResponseDTO> buscar(Long id);
 }

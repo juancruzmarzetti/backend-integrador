@@ -31,6 +31,6 @@ public class Paciente {
     private LocalDate fechaDeAlta;
     private String usuario;
     private String password;
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Turno> turnoSet = new HashSet<>();
 }

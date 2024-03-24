@@ -36,9 +36,9 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Paciente>> buscarPaciente(@PathVariable Long id) {
-        ResponseEntity<Optional<Paciente>> response;
-        Optional<Paciente> pacienteBuscado = pacienteService.buscar(id);
+    public ResponseEntity<Optional<PacienteResponseDTO>> buscarPaciente(@PathVariable Long id) {
+        ResponseEntity<Optional<PacienteResponseDTO>> response;
+        Optional<PacienteResponseDTO> pacienteBuscado = pacienteService.buscar(id);
         if(pacienteBuscado.isPresent()){
             response = ResponseEntity.ok(pacienteBuscado);
         }else{

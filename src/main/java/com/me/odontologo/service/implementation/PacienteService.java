@@ -69,7 +69,9 @@ public class PacienteService implements IPacienteService {
         }
     }
     @Override
-    public Optional<Paciente> buscar(Long id){
-        return pacienteRepository.findById(id);
+    public Optional<PacienteResponseDTO> buscar(Long id){
+        PacienteResponseDTO pacienteDTO =
+                mapper.convertValue(pacienteRepository.findById(id), PacienteResponseDTO.class);
+        return Optional.of(pacienteDTO);
     }
 }

@@ -1,125 +1,184 @@
 package com.me.odontologo.service.implementation;
 
+import com.me.odontologo.dto.PacienteResponseDTO;
 import com.me.odontologo.entity.Domicilio;
 import com.me.odontologo.entity.Paciente;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 class PacienteServiceTest {
-    /*
+
     @Autowired
     private PacienteService pacienteService;
-
+/*
     @BeforeEach
-    void setUp() {
-        DB.crearTablas();
-    }
+    void init() {
+        Domicilio domicilio1 =  new Domicilio();
+        domicilio1.setCalle("Pompeya");
+        domicilio1.setLocalidad("Gran Pompeya");
+        domicilio1.setProvincia("Buenos Aires");
+        domicilio1.setNumero(111);
+
+        Paciente paciente1 = new Paciente();
+        paciente1.setNombre("Jorge");
+        paciente1.setApellido("Lopez");
+        paciente1.setDomicilio(domicilio1);
+        paciente1.setDni(12312356);
+        paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
+        paciente1.setUsuario("jorge123");
+        paciente1.setPassword("123456789");
+
+        Domicilio domicilio2 = new Domicilio();
+        domicilio2.setCalle("Pompeya2");
+        domicilio2.setLocalidad("Gran Pompeya2");
+        domicilio2.setProvincia("Buenos Aires2");
+        domicilio2.setNumero(222);
+
+        Paciente paciente2 = new Paciente();
+        paciente2.setNombre("Jorge2");
+        paciente2.setApellido("Lopez2");
+        paciente2.setDomicilio(domicilio2);
+        paciente2.setDni(12312352);
+        paciente2.setFechaDeAlta(LocalDate.of(2022,2,22));
+        paciente2.setUsuario("jorge222");
+        paciente2.setPassword("123456222");
+    }*/
 
     @Test
     void guardarPaciente() {
-        Domicilio domicilio1 = new Domicilio("Pompeya",
-                1502, "Pompeya", "Buenos Aires");
-        Paciente paciente1 = new Paciente(
-                "Nombre1",
-                "Apellido1",
-                domicilio1,
-                11111111,
-                LocalDate.of(2020, 7, 12),
-                "usuario1",
-                "password1"
-        );
-        Paciente pacienteAlGuardar = pacienteService.guardarPaciente(paciente1);
+        Domicilio domicilio1 =  new Domicilio();
+        domicilio1.setCalle("Pompeya");
+        domicilio1.setNumero(111);
+        domicilio1.setLocalidad("Gran Pompeya");
+        domicilio1.setProvincia("Buenos Aires");
 
-        Assertions.assertEquals(paciente1.getDni(), pacienteAlGuardar.getDni());
+        Paciente paciente1 = new Paciente();
+        paciente1.setNombre("Jorge");
+        paciente1.setApellido("Lopez");
+        paciente1.setDomicilio(domicilio1);
+        paciente1.setDni(12312356);
+        paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
+        paciente1.setUsuario("jorge123");
+        paciente1.setPassword("123456789");
+
+        Optional<PacienteResponseDTO> pacienteAlGuardar = pacienteService.guardarPaciente(paciente1);
+
+        Assertions.assertTrue(pacienteAlGuardar.isPresent());
+        pacienteService.eliminarPaciente(paciente1.getId());
     }
 
     @Test
     void eliminarPaciente() {
-        Domicilio domicilio1 = new Domicilio("Pompeya",
-                1502, "Pompeya", "Buenos Aires");
-        Domicilio domicilio2 = new Domicilio("Pompeya2",
-                1503, "Pompeya2", "Buenos Aires2");
-        Paciente paciente1 = new Paciente(
-                "Nombre1",
-                "Apellido1",
-                domicilio1,
-                11111111,
-                LocalDate.of(2020, 7, 12),
-                "usuario1",
-                "password1"
-        );
-        Paciente paciente2 = new Paciente(
-                "Nombre2",
-                "Apellido2",
-                domicilio2,
-                22222222,
-                LocalDate.of(2022, 2, 22),
-                "usuario2",
-                "password2"
-        );
+        Domicilio domicilio1 =  new Domicilio();
+        domicilio1.setCalle("Pompeya");
+        domicilio1.setLocalidad("Gran Pompeya");
+        domicilio1.setProvincia("Buenos Aires");
+        domicilio1.setNumero(111);
 
-        Paciente pacienteAEliminar = pacienteService.guardarPaciente(paciente1);
-        Paciente pacienteAChequear = pacienteService.guardarPaciente(paciente2);
-        pacienteService.eliminarPaciente(pacienteAEliminar.getId());
-        List<Paciente> pacientes = pacienteService.buscarTodosLosPacientes();
+        Paciente paciente1 = new Paciente();
+        paciente1.setNombre("Jorge");
+        paciente1.setApellido("Lopez");
+        paciente1.setDomicilio(domicilio1);
+        paciente1.setDni(12312356);
+        paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
+        paciente1.setUsuario("jorge123");
+        paciente1.setPassword("123456789");
+
+        Domicilio domicilio2 = new Domicilio();
+        domicilio2.setCalle("Pompeya2");
+        domicilio2.setLocalidad("Gran Pompeya2");
+        domicilio2.setProvincia("Buenos Aires2");
+        domicilio2.setNumero(222);
+
+        Paciente paciente2 = new Paciente();
+        paciente2.setNombre("Jorge2");
+        paciente2.setApellido("Lopez2");
+        paciente2.setDomicilio(domicilio2);
+        paciente2.setDni(12312352);
+        paciente2.setFechaDeAlta(LocalDate.of(2022,2,22));
+        paciente2.setUsuario("jorge222");
+        paciente2.setPassword("123456222");
+
+        pacienteService.guardarPaciente(paciente1);
+        pacienteService.guardarPaciente(paciente2);
+
+        pacienteService.eliminarPaciente(paciente1.getId());
+        List<PacienteResponseDTO> pacientes = pacienteService.buscarTodosLosPacientes();
 
         Assertions.assertEquals(1, pacientes.size());
+
+        pacienteService.eliminarPaciente(paciente2.getId());
     }
 
     @Test
     void buscarTodosLosPacientes() {
-        Domicilio domicilio1 = new Domicilio("Pompeya",
-                1502, "Pompeya", "Buenos Aires");
-        Domicilio domicilio2 = new Domicilio("Pompeya2",
-                1503, "Pompeya2", "Buenos Aires2");
-        Paciente paciente1 = new Paciente(
-                "Nombre1",
-                "Apellido1",
-                domicilio1,
-                11111111,
-                LocalDate.of(2020, 7, 12),
-                "usuario1",
-                "password1"
-        );
-        Paciente paciente2 = new Paciente(
-                "Nombre2",
-                "Apellido2",
-                domicilio2,
-                22222222,
-                LocalDate.of(2022, 2, 22),
-                "usuario2",
-                "password2"
-        );
+        Domicilio domicilio1 =  new Domicilio();
+        domicilio1.setCalle("Pompeya");
+        domicilio1.setLocalidad("Gran Pompeya");
+        domicilio1.setProvincia("Buenos Aires");
+        domicilio1.setNumero(111);
+
+        Paciente paciente1 = new Paciente();
+        paciente1.setNombre("Jorge");
+        paciente1.setApellido("Lopez");
+        paciente1.setDomicilio(domicilio1);
+        paciente1.setDni(12312356);
+        paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
+        paciente1.setUsuario("jorge123");
+        paciente1.setPassword("123456789");
+
+        Domicilio domicilio2 = new Domicilio();
+        domicilio2.setCalle("Pompeya2");
+        domicilio2.setLocalidad("Gran Pompeya2");
+        domicilio2.setProvincia("Buenos Aires2");
+        domicilio2.setNumero(222);
+
+        Paciente paciente2 = new Paciente();
+        paciente2.setNombre("Jorge2");
+        paciente2.setApellido("Lopez2");
+        paciente2.setDomicilio(domicilio2);
+        paciente2.setDni(12312352);
+        paciente2.setFechaDeAlta(LocalDate.of(2022,2,22));
+        paciente2.setUsuario("jorge222");
+        paciente2.setPassword("123456222");
         pacienteService.guardarPaciente(paciente1);
         pacienteService.guardarPaciente(paciente2);
-        List<Paciente> pacientes = pacienteService.buscarTodosLosPacientes();
+        List<PacienteResponseDTO> pacientes = pacienteService.buscarTodosLosPacientes();
 
         Assertions.assertEquals(2, pacientes.size());
+        pacienteService.eliminarPaciente(paciente1.getId());
+        pacienteService.eliminarPaciente(paciente2.getId());
     }
 
     @Test
     void buscar() {
-        Domicilio domicilio1 = new Domicilio("Pompeya",
-                1502, "Pompeya", "Buenos Aires");
-        Paciente paciente1 = new Paciente(
-                "Nombre1",
-                "Apellido1",
-                domicilio1,
-                11111111,
-                LocalDate.of(2020, 7, 12),
-                "usuario1",
-                "password1"
-        );
-        Paciente pacienteAlGuardar = pacienteService.guardarPaciente(paciente1);
-        Paciente pacienteBuscado = pacienteService.buscar(pacienteAlGuardar.getId());
-        Assertions.assertEquals(pacienteAlGuardar.getId(), pacienteBuscado.getId());
+        Domicilio domicilio1 =  new Domicilio();
+        domicilio1.setCalle("Pompeya");
+        domicilio1.setLocalidad("Gran Pompeya");
+        domicilio1.setProvincia("Buenos Aires");
+        domicilio1.setNumero(111);
+
+        Paciente paciente1 = new Paciente();
+        paciente1.setNombre("Jorge");
+        paciente1.setApellido("Lopez");
+        paciente1.setDomicilio(domicilio1);
+        paciente1.setDni(12312356);
+        paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
+        paciente1.setUsuario("jorge123");
+        paciente1.setPassword("123456789");
+
+        pacienteService.guardarPaciente(paciente1);
+        Optional<PacienteResponseDTO> pacienteBuscado = pacienteService.buscar(paciente1.getId());
+
+        Assertions.assertEquals(paciente1.getId(), pacienteBuscado.get().getId());
+        pacienteService.eliminarPaciente(paciente1.getId());
     }
-     */
+
 }
