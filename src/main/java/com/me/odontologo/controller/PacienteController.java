@@ -1,5 +1,6 @@
 package com.me.odontologo.controller;
 
+import com.me.odontologo.dto.PacienteResponseDTO;
 import com.me.odontologo.entity.Odontologo;
 import com.me.odontologo.entity.Paciente;
 import com.me.odontologo.service.IPacienteService;
@@ -23,10 +24,10 @@ public class PacienteController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Paciente>> getPacientes() {
-        ResponseEntity<List<Paciente>> response;
-        List<Paciente> pacientes = pacienteService.buscarTodosLosPacientes();
-        if(pacientes != null){
+    public ResponseEntity<List<PacienteResponseDTO>> getPacientes() {
+        ResponseEntity<List<PacienteResponseDTO>> response;
+        List<PacienteResponseDTO> pacientes = pacienteService.buscarTodosLosPacientes();
+        if(!pacientes.isEmpty()){
             response = ResponseEntity.ok(pacienteService.buscarTodosLosPacientes());
         }else {
             response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
@@ -47,9 +48,9 @@ public class PacienteController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Optional<Paciente>> agregar(@RequestBody Paciente paciente){
-        ResponseEntity<Optional<Paciente>> response;
-        Optional<Paciente> pacienteAgregado = pacienteService.guardarPaciente(paciente);
+    public ResponseEntity<Optional<PacienteResponseDTO>> agregar(@RequestBody Paciente paciente){
+        ResponseEntity<Optional<PacienteResponseDTO>> response;
+        Optional<PacienteResponseDTO> pacienteAgregado = pacienteService.guardarPaciente(paciente);
         if(pacienteAgregado.isPresent()){
             response = ResponseEntity.ok(pacienteAgregado);
         }else{
@@ -59,9 +60,9 @@ public class PacienteController {
     }
 
     @PutMapping("/actualizar")
-    public ResponseEntity<Optional<Paciente>> actualizar(@RequestBody Paciente paciente){
-        ResponseEntity<Optional<Paciente>> response;
-        Optional<Paciente> pacienteActualizado = pacienteService.actualizarPaciente(paciente);
+    public ResponseEntity<Optional<PacienteResponseDTO>> actualizar(@RequestBody Paciente paciente){
+        ResponseEntity<Optional<PacienteResponseDTO>> response;
+        Optional<PacienteResponseDTO> pacienteActualizado = pacienteService.actualizarPaciente(paciente);
         if(pacienteActualizado.isPresent()){
             response = ResponseEntity.ok(pacienteActualizado);
         }else{

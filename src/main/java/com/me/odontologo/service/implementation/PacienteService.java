@@ -1,41 +1,49 @@
 package com.me.odontologo.service.implementation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.me.odontologo.dto.PacienteResponseDTO;
 import com.me.odontologo.entity.Domicilio;
 import com.me.odontologo.entity.Paciente;
 import com.me.odontologo.repository.IDomicilioRepository;
 import com.me.odontologo.repository.IPacienteRepository;
 import com.me.odontologo.service.IPacienteService;
+import org.modelmapper.internal.bytebuddy.dynamic.DynamicType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PacienteService implements IPacienteService {
-    private IPacienteRepository pacienteRepository;
-    private IDomicilioRepository domicilioRepository;
+    private final IPacienteRepository pacienteRepository;
+    private final ObjectMapper mapper;
     @Autowired
-    public PacienteService(IPacienteRepository pacienteRepository) {
+    public PacienteService(IPacienteRepository pacienteRepository, ObjectMapper mapper) {
         this.pacienteRepository = pacienteRepository;
+        this.mapper = mapper;
     }
 
     @Override
-    public Optional<Paciente> guardarPaciente(Paciente paciente){
-        //TODO parsear fecha String del JSON a fecha LocalDate
+    public Optional<PacienteResponseDTO> guardarPaciente(Paciente paciente){
         pacienteRepository.save(paciente);
-        return pacienteRepository.findById(paciente.getId());
+        PacienteResponseDTO pacienteDTO = mapper.convertValue(paciente, PacienteResponseDTO.class);
+        return Optional.of(pacienteDTO);
     }
 
     @Override
-    public Optional<Paciente> actualizarPaciente(Paciente paciente){
-        Optional<Paciente> pacienteActualizado;
+    public Optional<PacienteResponseDTO> actualizarPaciente(Paciente paciente){
+        Optional<PacienteResponseDTO> pacienteDTOOptionalActualizado;
         if(pacienteRepository.findById(paciente.getId()).isPresent()){
-            pacienteRepository.save(paciente);
-            pacienteActualizado = pacienteRepository.findById(paciente.getId());
+            Paciente pacienteActualizado = pacienteRepository.save(paciente);
+            PacienteResponseDTO pacienteDTO =
+                    mapper.convertValue(pacienteActualizado, PacienteResponseDTO.class);
+            pacienteDTOOptionalActualizado = Optional.of(pacienteDTO);
         }else{
             return null;
         }
-        return pacienteActualizado;
+        return pacienteDTOOptionalActualizado;
     }
     @Override
     public boolean eliminarPaciente(Long id){
@@ -48,10 +56,14 @@ public class PacienteService implements IPacienteService {
         return response;
     }
     @Override
-    public List<Paciente> buscarTodosLosPacientes(){
+    public List<PacienteResponseDTO> buscarTodosLosPacientes(){
         List<Paciente> pacientes = pacienteRepository.findAll();
+        List<PacienteResponseDTO> pacientesDTO = new ArrayList<>();
         if(!pacientes.isEmpty()){
-            return pacientes;
+            for(Paciente p: pacientes){
+                pacientesDTO.add(mapper.convertValue(p, PacienteResponseDTO.class));
+            }
+            return pacientesDTO;
         }else {
             return null;
         }
