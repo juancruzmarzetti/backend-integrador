@@ -1,5 +1,7 @@
 package com.me.odontologo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,5 +34,6 @@ public class Paciente {
     private String usuario;
     private String password;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();
 }

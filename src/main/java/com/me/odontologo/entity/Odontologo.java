@@ -1,5 +1,7 @@
 package com.me.odontologo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,5 +22,6 @@ public class Odontologo {
     private String nombre;
     private String apellido;
     @OneToMany(mappedBy = "odontologo", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();
 }

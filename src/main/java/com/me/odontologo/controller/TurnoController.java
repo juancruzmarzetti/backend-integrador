@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("turnos")
+@RequestMapping("/turnos")
 public class TurnoController {
     private ITurnoService turnoService;
 
