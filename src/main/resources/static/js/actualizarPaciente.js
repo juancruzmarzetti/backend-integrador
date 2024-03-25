@@ -14,6 +14,7 @@ window.addEventListener('load', function () {
            nombre: document.querySelector('#nombre').value,
            apellido: document.querySelector('#apellido').value,
            domicilio: {
+                 id: document.querySelector('#paciente_id').value,
                  calle: document.querySelector('#calle').value,
                  numero: document.querySelector('#numero').value,
                  localidad: document.querySelector('#localidad').value,
