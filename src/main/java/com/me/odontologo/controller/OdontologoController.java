@@ -25,7 +25,14 @@ public class OdontologoController {
     }
     @GetMapping("/all")
     public ResponseEntity<List<Odontologo>> getOdontologos() {
-        return ResponseEntity.ok(odontologoService.buscarTodosLosOdontologos());
+        ResponseEntity<List<Odontologo>> response;
+        List<Odontologo> odontologos = odontologoService.buscarTodosLosOdontologos();
+        if(!odontologos.isEmpty()){
+            response = ResponseEntity.ok(odontologos);
+        }else{
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return response;
     }
 
     @PutMapping("/actualizar")
