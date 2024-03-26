@@ -38,9 +38,28 @@ public class TurnoController {
         return response;
     }
 
+    @PutMapping("/actualizar")
+    public ResponseEntity<Turno> actualizar(@RequestBody Turno turno){
+        ResponseEntity<Turno> response;
+        Turno turnoActualizado = turnoService.actualizarTurno(turno);
+        if(turnoActualizado != null){
+            response = ResponseEntity.ok(turnoActualizado);
+        }else{
+            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return response;
+    }
+
     @GetMapping("/all")
-    public ResponseEntity<List<Turno>> getTurno() {
-        return ResponseEntity.ok(turnoService.buscarTodosLosTurnos());
+    public ResponseEntity<List<Turno>> getTurnos() {
+        ResponseEntity<List<Turno>> response;
+        List<Turno> turnos = turnoService.buscarTodosLosTurnos();
+        if (!turnos.isEmpty()){
+            response = ResponseEntity.ok(turnos);
+        }else{
+            response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return response;
     }
 
     @GetMapping("/{id}")
@@ -58,8 +77,8 @@ public class TurnoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable Long id){
         ResponseEntity<HttpStatus> response;
-        if(turnoService.buscar(id).isPresent()){
-            turnoService.eliminarTurno(id);
+        boolean siExiste = turnoService.eliminarTurno(id);
+        if(siExiste){
             response = ResponseEntity.status(HttpStatus.OK).build();
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

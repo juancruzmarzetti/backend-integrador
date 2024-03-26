@@ -7,7 +7,8 @@ import java.util.Optional;
 
 public interface ITurnoService {
     Turno guardarTurno(Turno turno);
-    void eliminarTurno(Long id);
+    boolean eliminarTurno(Long id);
     List<Turno> buscarTodosLosTurnos();
     Optional<Turno> buscar(Long id);
+    Turno actualizarTurno(Turno turno);
 }
