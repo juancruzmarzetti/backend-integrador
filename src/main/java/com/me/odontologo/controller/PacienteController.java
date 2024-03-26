@@ -36,10 +36,10 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<PacienteResponseDTO>> buscarPaciente(@PathVariable Long id) {
-        ResponseEntity<Optional<PacienteResponseDTO>> response;
-        Optional<PacienteResponseDTO> pacienteBuscado = pacienteService.buscar(id);
-        if(pacienteBuscado.isPresent()){
+    public ResponseEntity<PacienteResponseDTO> buscarPaciente(@PathVariable Long id) {
+        ResponseEntity<PacienteResponseDTO> response;
+        PacienteResponseDTO pacienteBuscado = pacienteService.buscar(id);
+        if(pacienteBuscado != null){
             response = ResponseEntity.ok(pacienteBuscado);
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -60,10 +60,10 @@ public class PacienteController {
     }
 
     @PutMapping("/actualizar")
-    public ResponseEntity<Optional<PacienteResponseDTO>> actualizar(@RequestBody Paciente paciente){
-        ResponseEntity<Optional<PacienteResponseDTO>> response;
-        Optional<PacienteResponseDTO> pacienteActualizado = pacienteService.actualizarPaciente(paciente);
-        if(pacienteActualizado.isPresent()){
+    public ResponseEntity<PacienteResponseDTO> actualizar(@RequestBody Paciente paciente){
+        ResponseEntity<PacienteResponseDTO> response;
+        PacienteResponseDTO pacienteActualizado = pacienteService.actualizarPaciente(paciente);
+        if(pacienteActualizado != null){
             response = ResponseEntity.ok(pacienteActualizado);
         }else{
             response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

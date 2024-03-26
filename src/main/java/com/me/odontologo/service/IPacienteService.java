@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface IPacienteService {
     Optional<PacienteResponseDTO> guardarPaciente(Paciente paciente);
-    Optional<PacienteResponseDTO> actualizarPaciente(Paciente paciente);
+    PacienteResponseDTO actualizarPaciente(Paciente paciente);
     boolean eliminarPaciente(Long id);
     List<PacienteResponseDTO> buscarTodosLosPacientes();
-    Optional<PacienteResponseDTO> buscar(Long id);
+    PacienteResponseDTO buscar(Long id);
 }

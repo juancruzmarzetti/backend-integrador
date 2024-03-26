@@ -33,17 +33,14 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public Optional<PacienteResponseDTO> actualizarPaciente(Paciente paciente){
-        Optional<PacienteResponseDTO> pacienteDTOOptionalActualizado;
+    public PacienteResponseDTO actualizarPaciente(Paciente paciente){
+        PacienteResponseDTO pacienteDTOActualizado = null;
         if(pacienteRepository.findById(paciente.getId()).isPresent()){
             Paciente pacienteActualizado = pacienteRepository.save(paciente);
-            PacienteResponseDTO pacienteDTO =
+            pacienteDTOActualizado =
                     mapper.convertValue(pacienteActualizado, PacienteResponseDTO.class);
-            pacienteDTOOptionalActualizado = Optional.of(pacienteDTO);
-        }else{
-            return null;
         }
-        return pacienteDTOOptionalActualizado;
+        return pacienteDTOActualizado;
     }
     @Override
     public boolean eliminarPaciente(Long id){
@@ -63,15 +60,16 @@ public class PacienteService implements IPacienteService {
             for(Paciente p: pacientes){
                 pacientesDTO.add(mapper.convertValue(p, PacienteResponseDTO.class));
             }
-            return pacientesDTO;
-        }else {
-            return null;
         }
+        return pacientesDTO;
     }
     @Override
-    public Optional<PacienteResponseDTO> buscar(Long id){
-        PacienteResponseDTO pacienteDTO =
-                mapper.convertValue(pacienteRepository.findById(id), PacienteResponseDTO.class);
-        return Optional.of(pacienteDTO);
+    public PacienteResponseDTO buscar(Long id){
+        PacienteResponseDTO pacienteDTO = null;
+        Optional<Paciente> pacienteBuscado = pacienteRepository.findById(id);
+        if (pacienteBuscado.isPresent()){
+            pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteResponseDTO.class);
+        }
+        return pacienteDTO;
     }
 }
