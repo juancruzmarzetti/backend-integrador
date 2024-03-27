@@ -25,60 +25,31 @@ public class OdontologoController {
     }
     @GetMapping("/all")
     public ResponseEntity<List<Odontologo>> getOdontologos() {
-        ResponseEntity<List<Odontologo>> response;
         List<Odontologo> odontologos = odontologoService.buscarTodosLosOdontologos();
-        if(!odontologos.isEmpty()){
-            response = ResponseEntity.ok(odontologos);
-        }else{
-            response = ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
-        return response;
+        return ResponseEntity.ok(odontologos);
     }
 
     @PutMapping("/actualizar")
     public ResponseEntity<Odontologo> actualizarOdontologo(@RequestBody Odontologo odontologo){
-        ResponseEntity<Odontologo> response;
-        Odontologo odontologoActualizado = odontologoService.guardarOdontologo(odontologo);
-        if(odontologoActualizado != null){
-            response = ResponseEntity.ok(odontologoActualizado);
-        }else{
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return response;
+        Odontologo odontologoActualizado = odontologoService.actualizarOdontologo(odontologo);
+        return ResponseEntity.ok(odontologoActualizado);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Odontologo>> buscarOdontologo(@PathVariable Long id) {
-        ResponseEntity<Optional<Odontologo>> response;
         Optional<Odontologo> odontologoBuscado = odontologoService.buscar(id);
-        if(odontologoBuscado.isPresent()){
-            response = ResponseEntity.ok(odontologoBuscado);
-        }else{
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return response;
+        return ResponseEntity.ok(odontologoBuscado);
     }
 
     @PostMapping("/agregar")
     public ResponseEntity<Odontologo> agregar(@RequestBody Odontologo odontologo){
-        ResponseEntity<Odontologo> response;
         Odontologo odontologoAgregado = odontologoService.guardarOdontologo(odontologo);
-        if(odontologoAgregado != null){
-            response = ResponseEntity.ok(odontologoAgregado);
-        }else{
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return response;
+        return ResponseEntity.ok(odontologoAgregado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> eliminar(@PathVariable Long id){
-        ResponseEntity<HttpStatus> response;
-        if(odontologoService.buscar(id).isPresent()){
-            odontologoService.eliminarOdontologo(id);
-            response = ResponseEntity.status(HttpStatus.OK).build();
-        }else{
-            response = ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        return response;
+        odontologoService.eliminarOdontologo(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

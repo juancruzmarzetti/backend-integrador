@@ -9,4 +9,5 @@ public interface IOdontologoService {
     void eliminarOdontologo(Long id);
     List<Odontologo> buscarTodosLosOdontologos();
     Optional<Odontologo> buscar(Long id);
+    Odontologo actualizarOdontologo(Odontologo odontologo);
 }

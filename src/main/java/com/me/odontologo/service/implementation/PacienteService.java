@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.me.odontologo.dto.PacienteResponseDTO;
 import com.me.odontologo.entity.Domicilio;
 import com.me.odontologo.entity.Paciente;
+import com.me.odontologo.exception.BadRequestException;
+import com.me.odontologo.exception.NoContentException;
 import com.me.odontologo.repository.IDomicilioRepository;
 import com.me.odontologo.repository.IPacienteRepository;
 import com.me.odontologo.service.IPacienteService;
@@ -27,9 +29,15 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Optional<PacienteResponseDTO> guardarPaciente(Paciente paciente){
-        pacienteRepository.save(paciente);
-        PacienteResponseDTO pacienteDTO = mapper.convertValue(paciente, PacienteResponseDTO.class);
-        return Optional.of(pacienteDTO);
+        PacienteResponseDTO pacienteDTO;
+        if (paciente.getUsuario() != null && paciente.getDomicilio() != null
+        && paciente.getDni() != null && paciente.getFechaDeAlta() != null){
+            pacienteDTO = mapper.convertValue(
+                    pacienteRepository.save(paciente), PacienteResponseDTO.class);
+            return Optional.of(pacienteDTO);
+        }else{
+            throw new BadRequestException("Faltan rellenar los campos fundamentales");
+        }
     }
 
     @Override
@@ -39,18 +47,18 @@ public class PacienteService implements IPacienteService {
             Paciente pacienteActualizado = pacienteRepository.save(paciente);
             pacienteDTOActualizado =
                     mapper.convertValue(pacienteActualizado, PacienteResponseDTO.class);
+            return pacienteDTOActualizado;
+        }else{
+            throw new BadRequestException("El paciente no existe");
         }
-        return pacienteDTOActualizado;
     }
     @Override
-    public boolean eliminarPaciente(Long id){
-        boolean response = true;
+    public void eliminarPaciente(Long id){
         if(pacienteRepository.findById(id).isPresent()){
             pacienteRepository.deleteById(id);
         }else {
-            response = false;
+            throw new BadRequestException("El paciente no se pudo eliminar porque no existe");
         }
-        return response;
     }
     @Override
     public List<PacienteResponseDTO> buscarTodosLosPacientes(){
@@ -60,16 +68,20 @@ public class PacienteService implements IPacienteService {
             for(Paciente p: pacientes){
                 pacientesDTO.add(mapper.convertValue(p, PacienteResponseDTO.class));
             }
+            return pacientesDTO;
+        }else{
+            throw new NoContentException();
         }
-        return pacientesDTO;
     }
     @Override
     public PacienteResponseDTO buscar(Long id){
-        PacienteResponseDTO pacienteDTO = null;
+        PacienteResponseDTO pacienteDTO;
         Optional<Paciente> pacienteBuscado = pacienteRepository.findById(id);
         if (pacienteBuscado.isPresent()){
             pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteResponseDTO.class);
+            return pacienteDTO;
+        }else{
+            throw new BadRequestException("El paciente no existe");
         }
-        return pacienteDTO;
     }
 }
