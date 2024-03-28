@@ -53,7 +53,7 @@ class PacienteServiceTest {
 
     @Test
     void guardarPaciente() {
-        Domicilio domicilio1 =  new Domicilio();
+        Domicilio domicilio1 = new Domicilio();
         domicilio1.setCalle("Pompeya");
         domicilio1.setNumero(111);
         domicilio1.setLocalidad("Gran Pompeya");
@@ -175,9 +175,9 @@ class PacienteServiceTest {
         paciente1.setPassword("123456789");
 
         pacienteService.guardarPaciente(paciente1);
-        Optional<PacienteResponseDTO> pacienteBuscado = pacienteService.buscar(paciente1.getId());
+        PacienteResponseDTO pacienteBuscado = pacienteService.buscar(paciente1.getId());
 
-        Assertions.assertEquals(paciente1.getId(), pacienteBuscado.get().getId());
+        Assertions.assertEquals(paciente1.getId(), pacienteBuscado.getId());
         pacienteService.eliminarPaciente(paciente1.getId());
     }
 
