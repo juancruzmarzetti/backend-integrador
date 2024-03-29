@@ -8,6 +8,7 @@ import com.me.odontologo.exception.BadRequestException;
 import com.me.odontologo.exception.NoContentException;
 import com.me.odontologo.repository.IOdontologoRepository;
 import com.me.odontologo.service.IOdontologoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class OdontologoService implements IOdontologoService {
     private IOdontologoRepository odontologoRepository;
     private ObjectMapper mapper;
+    private final Logger LOGGER = Logger.getLogger(OdontologoService.class);
+
     @Autowired
     public OdontologoService(IOdontologoRepository odontologoRepository,
                              ObjectMapper mapper) {
@@ -36,6 +39,7 @@ public class OdontologoService implements IOdontologoService {
                     .convertValue(odontologo, OdontologoResponseDTO.class);
             return odontologoResponse;
         }else{
+            LOGGER.error("Falta el valor del campo matrícula");
             throw new BadRequestException("Falta el valor del campo matrícula");
         }
     }
@@ -49,7 +53,10 @@ public class OdontologoService implements IOdontologoService {
                     .convertValue(odontologo, OdontologoResponseDTO.class);
             return odontologoResponse;
         }else{
-            throw new BadRequestException("El odontologo buscado para actualizar no existe");
+            LOGGER.error("El odontologo buscado para actualizar" +
+                    "con id" + odontologo.getId() + " no existe");
+            throw new BadRequestException("El odontologo buscado para actualizar" +
+                    "con id" + odontologo.getId() + " no existe");
         }
     }
 
@@ -58,8 +65,10 @@ public class OdontologoService implements IOdontologoService {
         if(odontologoRepository.findById(id).isPresent()){
             odontologoRepository.deleteById(id);
         }else{
-            throw new BadRequestException("El odontologo no se puedo eliminar" +
-                    " porque no existe");
+            LOGGER.error("El odontologo con id " + id +
+                    " no se puedo eliminar porque no existe");
+            throw new BadRequestException("El odontologo con id " + id +
+                    " no se puedo eliminar porque no existe");
         }
     }
     @Override
@@ -73,6 +82,8 @@ public class OdontologoService implements IOdontologoService {
             }
             return odontologosResponse;
         }else{
+            LOGGER.error("la petición se realizó con éxito pero" +
+                    " la respuesta no tiene contenido");
             throw new NoContentException();
         }
     }
@@ -82,7 +93,10 @@ public class OdontologoService implements IOdontologoService {
         if(odontologo.isPresent()){
             return mapper.convertValue(odontologo, OdontologoResponseDTO.class);
         }else{
-            throw new BadRequestException("El odontologo buscado no existe");
+            LOGGER.error("El odontologo buscado" +
+                    "con id " + id + " no existe");
+            throw new BadRequestException("El odontologo buscado" +
+                    "con id " + id + " no existe");
         }
     }
 }

@@ -12,6 +12,7 @@ import com.me.odontologo.repository.ITurnoRepository;
 import com.me.odontologo.service.IOdontologoService;
 import com.me.odontologo.service.IPacienteService;
 import com.me.odontologo.service.ITurnoService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +22,15 @@ import java.util.Optional;
 
 @Service
 public class TurnoService implements ITurnoService {
-    private ITurnoRepository turnoRepository;
-    private IOdontologoService odontologoService;
-    private IPacienteService pacienteService;
+    private final ITurnoRepository turnoRepository;
+    private final IOdontologoService odontologoService;
+    private final IPacienteService pacienteService;
+    private final Logger LOGGER = Logger.getLogger(TurnoService.class);
 
     @Autowired
     public TurnoService(ITurnoRepository turnoRepository,
                         IOdontologoService odontologoService,
-                        IPacienteService pacienteService,
-                        ObjectMapper mapper) {
+                        IPacienteService pacienteService) {
         this.turnoRepository = turnoRepository;
         this.odontologoService = odontologoService;
         this.pacienteService = pacienteService;
@@ -66,7 +67,12 @@ public class TurnoService implements ITurnoService {
 
             return turnoResponse;
         }else {
-            throw new BadRequestException("El odontologo y/o el paciente no existe/n");
+            LOGGER.error("El odontologo con id" + odontologoId +
+                    " y/o el paciente con id" + pacienteId +
+                    " no existe/n");
+            throw new BadRequestException("El odontologo con id" + odontologoId +
+                    " y/o el paciente con id" + pacienteId +
+                    " no existe/n");
         }
     }
 
@@ -86,12 +92,21 @@ public class TurnoService implements ITurnoService {
                 );
                 return turnoResponse;
             }else{
-                throw new BadRequestException("El odontologo y/o el paciente" +
-                        "que enviaste en el cuerpo de actualización" +
-                        "no existe/n");
+                LOGGER.error(
+                        "El odontologo con id " + turno.getOdontologo().getId() +
+                        " y/o el paciente con id " + turno.getPaciente().getId() +
+                        "que enviaste en el cuerpo de actualización no existe/n"
+                );
+                throw new BadRequestException(
+                        "El odontologo con id " + turno.getOdontologo().getId() +
+                        " y/o el paciente con id " + turno.getPaciente().getId() +
+                        "que enviaste en el cuerpo de actualización no existe/n"
+                );
             }
         }else{
-            throw new BadRequestException("El turno no existe");
+            LOGGER.error("El turno con id " + turno.getId() + " no existe");
+            throw new BadRequestException("El turno con id " + turno.getId() +
+                    " no existe");
         }
     }
     @Override
@@ -99,7 +114,8 @@ public class TurnoService implements ITurnoService {
         if (turnoRepository.findById(id).isPresent()){
             turnoRepository.deleteById(id);
         }else{
-            throw new BadRequestException("El turno no existe");
+            LOGGER.error("El turno con id " + id + " no existe");
+            throw new BadRequestException("El turno con id " + id + " no existe");
         }
     }
     @Override
@@ -119,6 +135,8 @@ public class TurnoService implements ITurnoService {
             }
             return turnosResponse;
         }else{
+            LOGGER.error("la petición se realizó con éxito pero" +
+                    " la respuesta no tiene contenido");
             throw new NoContentException();
         }
     }
@@ -136,7 +154,8 @@ public class TurnoService implements ITurnoService {
             );
             return turnoRes;
         }else{
-            throw new BadRequestException("No existe el turno con ese id");
+            LOGGER.error("No existe el turno con id " + id);
+            throw new BadRequestException("No existe el turno con id " + id);
         }
     }
 }

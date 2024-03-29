@@ -8,6 +8,7 @@ import com.me.odontologo.exception.BadRequestException;
 import com.me.odontologo.exception.NoContentException;
 import com.me.odontologo.repository.IPacienteRepository;
 import com.me.odontologo.service.IPacienteService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class PacienteService implements IPacienteService {
     private final IPacienteRepository pacienteRepository;
     private final ObjectMapper mapper;
+    private final Logger LOGGER = Logger.getLogger(PacienteService.class);
+
     @Autowired
     public PacienteService(IPacienteRepository pacienteRepository, ObjectMapper mapper) {
         this.pacienteRepository = pacienteRepository;
@@ -33,7 +36,12 @@ public class PacienteService implements IPacienteService {
             pacienteRepository.save(paciente);
             return Optional.of(mapper.convertValue(paciente, PacienteResponseDTO.class));
         }else{
-            throw new BadRequestException("Faltan rellenar los campos fundamentales");
+            LOGGER.error("Faltan rellenar los campos fundamentales, " +
+                    "pueden ser alguno de los siguientes: " +
+                    "usuario, domicilio, dni o fechaDeAlta");
+            throw new BadRequestException("Faltan rellenar los campos fundamentales, " +
+                    "pueden ser alguno de los siguientes: " +
+                    "usuario, domicilio, dni o fechaDeAlta");
         }
     }
 
@@ -43,7 +51,10 @@ public class PacienteService implements IPacienteService {
             pacienteRepository.save(paciente);
             return mapper.convertValue(paciente, PacienteResponseDTO.class);
         }else{
-            throw new BadRequestException("El paciente no existe");
+            LOGGER.error("El paciente con id " +
+                    paciente.getId() + " no existe");
+            throw new BadRequestException("El paciente con id " +
+                    paciente.getId() + " no existe");
         }
     }
     @Override
@@ -51,7 +62,10 @@ public class PacienteService implements IPacienteService {
         if(pacienteRepository.findById(id).isPresent()){
             pacienteRepository.deleteById(id);
         }else {
-            throw new BadRequestException("El paciente no se pudo eliminar porque no existe");
+            LOGGER.error("El paciente con id " + id +
+                    " no se pudo eliminar porque no existe");
+            throw new BadRequestException("El paciente con id " + id +
+                    " no se pudo eliminar porque no existe");
         }
     }
     @Override
@@ -64,6 +78,8 @@ public class PacienteService implements IPacienteService {
             }
             return pacientesDTO;
         }else{
+            LOGGER.error("la petición se realizó con éxito pero" +
+                    " la respuesta no tiene contenido");
             throw new NoContentException();
         }
     }
@@ -73,7 +89,10 @@ public class PacienteService implements IPacienteService {
         if (pacienteBuscado.isPresent()){
             return mapper.convertValue(pacienteBuscado, PacienteResponseDTO.class);
         }else{
-            throw new BadRequestException("El paciente no existe");
+            LOGGER.error("El paciente con id " + id +
+                    " no existe");
+            throw new BadRequestException("El paciente con id " + id +
+                    " no existe");
         }
     }
 }
