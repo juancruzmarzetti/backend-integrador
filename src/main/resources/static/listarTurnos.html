@@ -57,15 +57,16 @@
     </nav>
 
     <div id="div_pelicula_table">
-        <h1>Odontologos</h1>
+        <h1>Turnos</h1>
         <div class="row col-md table-responsive">
             <table id="peliculaTable" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Matricula</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
+                    <th>Id Odontologo</th>
+                    <th>Id Paciente</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -79,23 +80,28 @@
              id="div_pelicula_updating">
             <form id="update_pelicula_form">
                 <div class="form-group">
-                    <label >Id:</label>
-                    <input type="text" class="form-control" id="odontologo_id" readonly>
+                    <label>Id:</label>
+                    <input type="text" class="form-control" id="turno_id" readonly>
                 </div>
                 <div class="form-group">
-                    <label >Matrícula:</label>
+                    <label >Id Odontologo:</label>
                     <input type="number" class="form-control"
-                           placeholder="matricula" id="matricula">
+                           placeholder="Id de odontologo" id="odontologo_id">
                 </div>
                 <div class="form-group">
-                    <label >Nombre:</label>
-                    <input type="text" class="form-control"
-                           placeholder="nombre" id="nombre">
+                    <label >Id Paciente:</label>
+                    <input type="number" class="form-control"
+                           placeholder="Id de paciente" id="paciente_id">
                 </div>
                 <div class="form-group">
-                    <label >Apellido:</label>
-                    <input type="text" class="form-control"
-                           placeholder="apellido" id="apellido">
+                    <label >Fecha:</label>
+                    <input type="date" class="form-control"
+                           placeholder="Fecha" id="fecha">
+                </div>
+                <div class="form-group">
+                    <label >Hora:</label>
+                    <input type="time" class="form-control"
+                           placeholder="Horario" id="horario">
                 </div>
                 <button type="submit" class="btn btn-primary">Modificar</button>
             </form>
