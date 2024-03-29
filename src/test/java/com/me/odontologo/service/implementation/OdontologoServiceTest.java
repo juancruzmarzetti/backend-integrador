@@ -1,5 +1,7 @@
 package com.me.odontologo.service.implementation;
 
+import com.me.odontologo.dto.request.OdontologoRequestDTO;
+import com.me.odontologo.dto.response.OdontologoResponseDTO;
 import com.me.odontologo.entity.Odontologo;
 import com.me.odontologo.service.IOdontologoService;
 import org.junit.jupiter.api.Assertions;
@@ -18,12 +20,12 @@ class OdontologoServiceTest {
 
     @Test
     void guardarOdontologo() {
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setMatricula(1111111);
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Messi");
 
-        Odontologo odontologoGuardado = odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoGuardado = odontologoService.guardarOdontologo(odontologo1);
 
         Assertions.assertEquals(odontologo1.getMatricula(), odontologoGuardado.getMatricula());
 
@@ -32,8 +34,8 @@ class OdontologoServiceTest {
 
     @Test
     void eliminarOdontologo() {
-        Odontologo odontologo1 = new Odontologo();
-        Odontologo odontologo2 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
+        OdontologoRequestDTO odontologo2 = new OdontologoRequestDTO();
 
         odontologo1.setMatricula(1111111);
         odontologo1.setNombre("Jorge");
@@ -43,21 +45,21 @@ class OdontologoServiceTest {
         odontologo2.setNombre("Lionel");
         odontologo2.setApellido("Martinez");
 
-        Odontologo odontologoAEliminar = odontologoService.guardarOdontologo(odontologo1);
-        odontologoService.guardarOdontologo(odontologo2);
+        OdontologoResponseDTO odontologoAEliminar = odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologo2Resp =  odontologoService.guardarOdontologo(odontologo2);
         odontologoService.eliminarOdontologo(odontologoAEliminar.getId());
 
-        List<Odontologo> odontologos = odontologoService.buscarTodosLosOdontologos();
+        List<OdontologoResponseDTO> odontologos = odontologoService.buscarTodosLosOdontologos();
 
         Assertions.assertEquals(1, odontologos.size());
 
-        odontologoService.eliminarOdontologo(odontologo2.getId());
+        odontologoService.eliminarOdontologo(odontologo2Resp.getId());
     }
 
     @Test
     void buscarTodosLosOdontologos() {
-        Odontologo odontologo1 = new Odontologo();
-        Odontologo odontologo2 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
+        OdontologoRequestDTO odontologo2 = new OdontologoRequestDTO();
 
         odontologo1.setMatricula(1111111);
         odontologo1.setNombre("Jorge");
@@ -67,30 +69,52 @@ class OdontologoServiceTest {
         odontologo2.setNombre("Lionel");
         odontologo2.setApellido("Martinez");
 
-        odontologoService.guardarOdontologo(odontologo1);
-        odontologoService.guardarOdontologo(odontologo2);
+        OdontologoResponseDTO odontologo1Resp = odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologo2Resp = odontologoService.guardarOdontologo(odontologo2);
 
-        List<Odontologo> odontologos = odontologoService.buscarTodosLosOdontologos();
+        List<OdontologoResponseDTO> odontologos = odontologoService.buscarTodosLosOdontologos();
 
         Assertions.assertEquals(2, odontologos.size());
 
-        odontologoService.eliminarOdontologo(odontologo1.getId());
-        odontologoService.eliminarOdontologo(odontologo2.getId());
+        odontologoService.eliminarOdontologo(odontologo1Resp.getId());
+        odontologoService.eliminarOdontologo(odontologo2Resp.getId());
     }
 
     @Test
     void buscar() {
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setMatricula(1111111);
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Messi");
 
-        Odontologo odontologoABuscar = odontologoService.guardarOdontologo(odontologo1);
-        Optional<Odontologo> odontologoBuscado = odontologoService.buscar(odontologoABuscar.getId());
+        OdontologoResponseDTO odontologoABuscar = odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoBuscado = odontologoService.buscar(odontologoABuscar.getId());
 
-        Assertions.assertTrue(odontologoBuscado.isPresent());
+        Assertions.assertEquals(odontologoABuscar.getMatricula(), odontologoBuscado.getMatricula());
 
         odontologoService.eliminarOdontologo(odontologoABuscar.getId());
     }
 
+    @Test
+    void actualizar() {
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
+        odontologo1.setMatricula(1111111);
+        odontologo1.setNombre("Jorge");
+        odontologo1.setApellido("Messi");
+
+        OdontologoResponseDTO odontologoGuardado = odontologoService.guardarOdontologo(odontologo1);
+
+        Odontologo odontologoActualizar = new Odontologo();
+        odontologoActualizar.setId(odontologoGuardado.getId());
+        odontologoActualizar.setMatricula(2222222);
+        odontologoActualizar.setNombre(odontologoGuardado.getNombre());
+        odontologoActualizar.setApellido(odontologoGuardado.getApellido());
+
+
+        OdontologoResponseDTO odontologoActualizado = odontologoService.actualizarOdontologo(odontologoActualizar);
+
+        Assertions.assertEquals(2222222, odontologoActualizado.getMatricula());
+
+        odontologoService.eliminarOdontologo(odontologoGuardado.getId());
+    }
 }

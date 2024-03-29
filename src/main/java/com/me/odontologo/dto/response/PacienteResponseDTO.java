@@ -1,4 +1,4 @@
-package com.me.odontologo.dto;
+package com.me.odontologo.dto.response;
 
 import com.me.odontologo.entity.Domicilio;
 import jakarta.persistence.Entity;
@@ -22,7 +22,6 @@ public class PacienteResponseDTO {
     private String apellido;
     private Domicilio domicilio;
     private Integer dni;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaDeAlta;
     private String usuario;
 }

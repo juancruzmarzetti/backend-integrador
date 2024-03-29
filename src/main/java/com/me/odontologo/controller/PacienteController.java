@@ -1,7 +1,7 @@
 package com.me.odontologo.controller;
 
-import com.me.odontologo.dto.PacienteResponseDTO;
-import com.me.odontologo.entity.Odontologo;
+import com.me.odontologo.dto.request.PacienteRequestDTO;
+import com.me.odontologo.dto.response.PacienteResponseDTO;
 import com.me.odontologo.entity.Paciente;
 import com.me.odontologo.service.IPacienteService;
 import com.me.odontologo.service.implementation.PacienteService;
@@ -36,8 +36,8 @@ public class PacienteController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Optional<PacienteResponseDTO>> agregar(@RequestBody Paciente paciente){
-        Optional<PacienteResponseDTO> pacienteAgregado = pacienteService.guardarPaciente(paciente);
+    public ResponseEntity<Optional<PacienteResponseDTO>> agregar(@RequestBody PacienteRequestDTO pacienteRequest){
+        Optional<PacienteResponseDTO> pacienteAgregado = pacienteService.guardarPaciente(pacienteRequest);
         return ResponseEntity.ok(pacienteAgregado);
     }
 

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +24,9 @@ public class Turno {
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
+
     private LocalDate fecha;
+
     private LocalTime hora;
 
 }

@@ -1,5 +1,11 @@
 package com.me.odontologo.service.implementation;
 
+import com.me.odontologo.dto.request.OdontologoRequestDTO;
+import com.me.odontologo.dto.request.PacienteRequestDTO;
+import com.me.odontologo.dto.request.TurnoRequestDTO;
+import com.me.odontologo.dto.response.OdontologoResponseDTO;
+import com.me.odontologo.dto.response.PacienteResponseDTO;
+import com.me.odontologo.dto.response.TurnoResponseDTO;
 import com.me.odontologo.entity.Domicilio;
 import com.me.odontologo.entity.Odontologo;
 import com.me.odontologo.entity.Paciente;
@@ -38,13 +44,13 @@ class TurnoServiceTest {
         domicilio1.setProvincia("Catamarca");
 
 
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Lopez");
         odontologo1.setMatricula(523124);
-        odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoResp = odontologoService.guardarOdontologo(odontologo1);
 
-        Paciente paciente1 = new Paciente();
+        PacienteRequestDTO paciente1 = new PacienteRequestDTO();
         paciente1.setNombre("Jorge");
         paciente1.setApellido("Lopez Junior");
         paciente1.setDomicilio(domicilio1);
@@ -52,23 +58,23 @@ class TurnoServiceTest {
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
         paciente1.setUsuario("jorgitojunior123");
         paciente1.setPassword("123");
-        pacienteService.guardarPaciente(paciente1);
+        Optional<PacienteResponseDTO> pacienteResp = pacienteService.guardarPaciente(paciente1);
 
-        Turno turno1 = new Turno();
+        TurnoRequestDTO turno1 = new TurnoRequestDTO();
         turno1.setFecha(LocalDate.of(2023,5, 15));
         turno1.setHora(LocalTime.of(15, 30, 0));
-        turno1.setOdontologo(odontologo1);
-        turno1.setPaciente(paciente1);
+        turno1.setOdontologo(odontologoResp.getId());
+        turno1.setPaciente(pacienteResp.get().getId());
 
-        turnoService.guardarTurno(turno1);
+        TurnoResponseDTO turnoResp = turnoService.guardarTurno(turno1);
 
-        Optional<Turno> turnoBuscado = turnoService.buscar(turno1.getId());
+        TurnoResponseDTO turnoBuscado = turnoService.buscar(turnoResp.getId());
 
-        Assertions.assertTrue(turnoBuscado.isPresent());
+        Assertions.assertNotNull(turnoBuscado);
 
-        turnoService.eliminarTurno(turnoBuscado.get().getId());
-        odontologoService.eliminarOdontologo(odontologo1.getId());
-        pacienteService.eliminarPaciente(paciente1.getId());
+        turnoService.eliminarTurno(turnoResp.getId());
+        odontologoService.eliminarOdontologo(odontologoResp.getId());
+        pacienteService.eliminarPaciente(pacienteResp.get().getId());
     }
 
     @Test
@@ -80,13 +86,13 @@ class TurnoServiceTest {
         domicilio1.setProvincia("Catamarca");
 
 
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Lopez");
         odontologo1.setMatricula(523124);
-        odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoResp1 = odontologoService.guardarOdontologo(odontologo1);
 
-        Paciente paciente1 = new Paciente();
+        PacienteRequestDTO paciente1 = new PacienteRequestDTO();
         paciente1.setNombre("Jorge");
         paciente1.setApellido("Lopez Junior");
         paciente1.setDomicilio(domicilio1);
@@ -94,13 +100,13 @@ class TurnoServiceTest {
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
         paciente1.setUsuario("jorgitojunior123");
         paciente1.setPassword("123");
-        pacienteService.guardarPaciente(paciente1);
+        Optional<PacienteResponseDTO> pacienteResp1 = pacienteService.guardarPaciente(paciente1);
 
-        Turno turno1 = new Turno();
+        TurnoRequestDTO turno1 = new TurnoRequestDTO();
         turno1.setFecha(LocalDate.of(2023,5, 15));
         turno1.setHora(LocalTime.of(15, 30, 0));
-        turno1.setOdontologo(odontologo1);
-        turno1.setPaciente(paciente1);
+        turno1.setOdontologo(odontologoResp1.getId());
+        turno1.setPaciente(pacienteResp1.get().getId());
 
         Domicilio domicilio2 = new Domicilio();
         domicilio2.setCalle("Pompeya2");
@@ -109,13 +115,13 @@ class TurnoServiceTest {
         domicilio2.setProvincia("Catamarca2");
 
 
-        Odontologo odontologo2 = new Odontologo();
+        OdontologoRequestDTO odontologo2 = new OdontologoRequestDTO();
         odontologo2.setNombre("Jorge2");
         odontologo2.setApellido("Lopez2");
         odontologo2.setMatricula(22222222);
-        odontologoService.guardarOdontologo(odontologo2);
+        OdontologoResponseDTO odontologoResp2 = odontologoService.guardarOdontologo(odontologo2);
 
-        Paciente paciente2 = new Paciente();
+        PacienteRequestDTO paciente2 = new PacienteRequestDTO();
         paciente2.setNombre("Jorge2");
         paciente2.setApellido("Lopez Junior2");
         paciente2.setDomicilio(domicilio2);
@@ -123,26 +129,26 @@ class TurnoServiceTest {
         paciente2.setFechaDeAlta(LocalDate.of(2022, 2, 12));
         paciente2.setUsuario("jorgitojunior222");
         paciente2.setPassword("222");
-        pacienteService.guardarPaciente(paciente2);
+        Optional<PacienteResponseDTO> pacienteResp2 = pacienteService.guardarPaciente(paciente2);
 
-        Turno turno2 = new Turno();
+        TurnoRequestDTO turno2 = new TurnoRequestDTO();
         turno2.setFecha(LocalDate.of(2022,2, 22));
         turno2.setHora(LocalTime.of(22, 22, 22));
-        turno2.setOdontologo(odontologo2);
-        turno2.setPaciente(paciente2);
+        turno2.setOdontologo(odontologoResp2.getId());
+        turno2.setPaciente(pacienteResp2.get().getId());
 
-        turnoService.guardarTurno(turno1);
-        turnoService.guardarTurno(turno2);
-        turnoService.eliminarTurno(turno1.getId());
-        List<Turno> turnos = turnoService.buscarTodosLosTurnos();
+        TurnoResponseDTO turnoResp1 = turnoService.guardarTurno(turno1);
+        TurnoResponseDTO turnoResp2 = turnoService.guardarTurno(turno2);
+        turnoService.eliminarTurno(turnoResp1.getId());
+        List<TurnoResponseDTO> turnos = turnoService.buscarTodosLosTurnos();
 
         Assertions.assertEquals(1, turnos.size());
 
-        turnoService.eliminarTurno(turno2.getId());
-        odontologoService.eliminarOdontologo(odontologo1.getId());
-        odontologoService.eliminarOdontologo(odontologo2.getId());
-        pacienteService.eliminarPaciente(paciente1.getId());
-        pacienteService.eliminarPaciente(paciente2.getId());
+        turnoService.eliminarTurno(turnoResp2.getId());
+        odontologoService.eliminarOdontologo(odontologoResp1.getId());
+        odontologoService.eliminarOdontologo(odontologoResp2.getId());
+        pacienteService.eliminarPaciente(pacienteResp1.get().getId());
+        pacienteService.eliminarPaciente(pacienteResp2.get().getId());
     }
 
     @Test
@@ -154,13 +160,13 @@ class TurnoServiceTest {
         domicilio1.setProvincia("Catamarca");
 
 
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Lopez");
         odontologo1.setMatricula(523124);
-        odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoResp1 = odontologoService.guardarOdontologo(odontologo1);
 
-        Paciente paciente1 = new Paciente();
+        PacienteRequestDTO paciente1 = new PacienteRequestDTO();
         paciente1.setNombre("Jorge");
         paciente1.setApellido("Lopez Junior");
         paciente1.setDomicilio(domicilio1);
@@ -168,13 +174,13 @@ class TurnoServiceTest {
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
         paciente1.setUsuario("jorgitojunior123");
         paciente1.setPassword("123");
-        pacienteService.guardarPaciente(paciente1);
+        Optional<PacienteResponseDTO> pacienteResp1 = pacienteService.guardarPaciente(paciente1);
 
-        Turno turno1 = new Turno();
+        TurnoRequestDTO turno1 = new TurnoRequestDTO();
         turno1.setFecha(LocalDate.of(2023,5, 15));
         turno1.setHora(LocalTime.of(15, 30, 0));
-        turno1.setOdontologo(odontologo1);
-        turno1.setPaciente(paciente1);
+        turno1.setOdontologo(odontologoResp1.getId());
+        turno1.setPaciente(pacienteResp1.get().getId());
 
         Domicilio domicilio2 = new Domicilio();
         domicilio2.setCalle("Pompeya2");
@@ -183,13 +189,13 @@ class TurnoServiceTest {
         domicilio2.setProvincia("Catamarca2");
 
 
-        Odontologo odontologo2 = new Odontologo();
+        OdontologoRequestDTO odontologo2 = new OdontologoRequestDTO();
         odontologo2.setNombre("Jorge2");
         odontologo2.setApellido("Lopez2");
         odontologo2.setMatricula(22222222);
-        odontologoService.guardarOdontologo(odontologo2);
+        OdontologoResponseDTO odontologoResp2 = odontologoService.guardarOdontologo(odontologo2);
 
-        Paciente paciente2 = new Paciente();
+        PacienteRequestDTO paciente2 = new PacienteRequestDTO();
         paciente2.setNombre("Jorge2");
         paciente2.setApellido("Lopez Junior2");
         paciente2.setDomicilio(domicilio2);
@@ -197,21 +203,26 @@ class TurnoServiceTest {
         paciente2.setFechaDeAlta(LocalDate.of(2022, 2, 12));
         paciente2.setUsuario("jorgitojunior222");
         paciente2.setPassword("222");
-        pacienteService.guardarPaciente(paciente2);
+        Optional<PacienteResponseDTO> pacienteResp2 = pacienteService.guardarPaciente(paciente2);
 
-        Turno turno2 = new Turno();
+        TurnoRequestDTO turno2 = new TurnoRequestDTO();
         turno2.setFecha(LocalDate.of(2022,2, 22));
         turno2.setHora(LocalTime.of(22, 22, 22));
-        turno2.setOdontologo(odontologo2);
-        turno2.setPaciente(paciente2);
+        turno2.setOdontologo(odontologoResp2.getId());
+        turno2.setPaciente(pacienteResp2.get().getId());
 
-        turnoService.guardarTurno(turno1);
-        turnoService.guardarTurno(turno2);
-        List<Turno> turnos = turnoService.buscarTodosLosTurnos();
+        TurnoResponseDTO turnoResp1 = turnoService.guardarTurno(turno1);
+        TurnoResponseDTO turnoResp2 = turnoService.guardarTurno(turno2);
+        List<TurnoResponseDTO> turnos = turnoService.buscarTodosLosTurnos();
 
         Assertions.assertEquals(2, turnos.size());
-        turnoService.eliminarTurno(turno1.getId());
-        turnoService.eliminarTurno(turno2.getId());
+
+        turnoService.eliminarTurno(turnoResp1.getId());
+        turnoService.eliminarTurno(turnoResp2.getId());
+        odontologoService.eliminarOdontologo(odontologoResp1.getId());
+        odontologoService.eliminarOdontologo(odontologoResp2.getId());
+        pacienteService.eliminarPaciente(pacienteResp1.get().getId());
+        pacienteService.eliminarPaciente(pacienteResp2.get().getId());
     }
 
     @Test
@@ -223,13 +234,13 @@ class TurnoServiceTest {
         domicilio1.setProvincia("Catamarca");
 
 
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Lopez");
         odontologo1.setMatricula(523124);
-        odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoResp = odontologoService.guardarOdontologo(odontologo1);
 
-        Paciente paciente1 = new Paciente();
+        PacienteRequestDTO paciente1 = new PacienteRequestDTO();
         paciente1.setNombre("Jorge");
         paciente1.setApellido("Lopez Junior");
         paciente1.setDomicilio(domicilio1);
@@ -237,22 +248,23 @@ class TurnoServiceTest {
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
         paciente1.setUsuario("jorgitojunior123");
         paciente1.setPassword("123");
-        pacienteService.guardarPaciente(paciente1);
+        Optional<PacienteResponseDTO> pacienteResp = pacienteService.guardarPaciente(paciente1);
 
-        Turno turno1 = new Turno();
+        TurnoRequestDTO turno1 = new TurnoRequestDTO();
         turno1.setFecha(LocalDate.of(2023,5, 15));
         turno1.setHora(LocalTime.of(15, 30, 0));
-        turno1.setOdontologo(odontologo1);
-        turno1.setPaciente(paciente1);
+        turno1.setOdontologo(odontologoResp.getId());
+        turno1.setPaciente(pacienteResp.get().getId());
 
-        turnoService.guardarTurno(turno1);
-        Optional<Turno> turnoBuscado = turnoService.buscar(turno1.getId());
+        TurnoResponseDTO turnoResp = turnoService.guardarTurno(turno1);
 
-        Assertions.assertTrue(turnoBuscado.isPresent());
+        TurnoResponseDTO turnoBuscado = turnoService.buscar(turnoResp.getId());
 
-        turnoService.eliminarTurno(turno1.getId());
-        odontologoService.eliminarOdontologo(odontologo1.getId());
-        pacienteService.eliminarPaciente(paciente1.getId());
+        Assertions.assertNotNull(turnoBuscado);
+
+        turnoService.eliminarTurno(turnoResp.getId());
+        odontologoService.eliminarOdontologo(odontologoResp.getId());
+        pacienteService.eliminarPaciente(pacienteResp.get().getId());
     }
 
     @Test
@@ -264,13 +276,13 @@ class TurnoServiceTest {
         domicilio1.setProvincia("Catamarca");
 
 
-        Odontologo odontologo1 = new Odontologo();
+        OdontologoRequestDTO odontologo1 = new OdontologoRequestDTO();
         odontologo1.setNombre("Jorge");
         odontologo1.setApellido("Lopez");
         odontologo1.setMatricula(523124);
-        odontologoService.guardarOdontologo(odontologo1);
+        OdontologoResponseDTO odontologoResp1 = odontologoService.guardarOdontologo(odontologo1);
 
-        Paciente paciente1 = new Paciente();
+        PacienteRequestDTO paciente1 = new PacienteRequestDTO();
         paciente1.setNombre("Jorge");
         paciente1.setApellido("Lopez Junior");
         paciente1.setDomicilio(domicilio1);
@@ -278,40 +290,42 @@ class TurnoServiceTest {
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
         paciente1.setUsuario("jorgitojunior123");
         paciente1.setPassword("123");
-        pacienteService.guardarPaciente(paciente1);
+        Optional<PacienteResponseDTO> pacienteResp1 = pacienteService.guardarPaciente(paciente1);
 
-        Turno turno1 = new Turno();
+        TurnoRequestDTO turno1 = new TurnoRequestDTO();
         turno1.setFecha(LocalDate.of(2023,5, 15));
         turno1.setHora(LocalTime.of(15, 30, 0));
-        turno1.setOdontologo(odontologo1);
-        turno1.setPaciente(paciente1);
+        turno1.setOdontologo(odontologoResp1.getId());
+        turno1.setPaciente(pacienteResp1.get().getId());
 
-        Domicilio domicilio2 = new Domicilio();
-        domicilio2.setCalle("Pompeya2");
-        domicilio2.setNumero(2222);
-        domicilio2.setLocalidad("Gran Pompeya2");
-        domicilio2.setProvincia("Catamarca2");
+        TurnoResponseDTO turnoResp = turnoService.guardarTurno(turno1);
 
-        Paciente paciente2 = new Paciente();
-        paciente2.setNombre("Jorge2");
-        paciente2.setApellido("Lopez Junior2");
-        paciente2.setDomicilio(domicilio2);
-        paciente2.setDni(222222);
-        paciente2.setFechaDeAlta(LocalDate.of(2022, 2, 12));
-        paciente2.setUsuario("jorgitojunior222");
-        paciente2.setPassword("222");
-        pacienteService.guardarPaciente(paciente2);
+        OdontologoRequestDTO odontologo2 = new OdontologoRequestDTO();
+        odontologo2.setNombre("Jorge2");
+        odontologo2.setApellido("Lopez2");
+        odontologo2.setMatricula(22222222);
+        OdontologoResponseDTO odontologoResp2 = odontologoService.guardarOdontologo(odontologo2);
 
-        turnoService.guardarTurno(turno1);
+        Odontologo odontologoActualizarTurno = new Odontologo();
+        odontologoActualizarTurno.setId(odontologoResp2.getId());
 
-        turno1.setPaciente(paciente2);
-        turnoService.actualizarTurno(turno1);
+        Paciente pacienteActualizarTurno = new Paciente();
+        pacienteActualizarTurno.setId(pacienteResp1.get().getId());
 
-        Assertions.assertEquals(turno1.getPaciente().getId(), paciente2.getId());
+        Turno turnoActualizar = new Turno();
+        turnoActualizar.setId(turnoResp.getId());
+        turnoActualizar.setOdontologo(odontologoActualizarTurno);
+        turnoActualizar.setPaciente(pacienteActualizarTurno);
+        turnoActualizar.setHora(turnoResp.getHora());
+        turnoActualizar.setFecha(turnoResp.getFecha());
 
-        turnoService.eliminarTurno(turno1.getId());
-        odontologoService.eliminarOdontologo(odontologo1.getId());
-        pacienteService.eliminarPaciente(paciente1.getId());
-        pacienteService.eliminarPaciente(paciente2.getId());
+        TurnoResponseDTO turnoActualizado = turnoService.actualizarTurno(turnoActualizar);
+
+        Assertions.assertEquals(turnoActualizar.getOdontologo().getId(), turnoActualizado.getOdontologo());
+
+        turnoService.eliminarTurno(turnoResp.getId());
+        odontologoService.eliminarOdontologo(odontologoResp1.getId());
+        odontologoService.eliminarOdontologo(odontologoResp2.getId());
+        pacienteService.eliminarPaciente(pacienteResp1.get().getId());
     }
 }

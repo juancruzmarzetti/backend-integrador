@@ -1,5 +1,7 @@
 package com.me.odontologo.controller;
 
+import com.me.odontologo.dto.request.TurnoRequestDTO;
+import com.me.odontologo.dto.response.TurnoResponseDTO;
 import com.me.odontologo.entity.Paciente;
 import com.me.odontologo.entity.Turno;
 import com.me.odontologo.service.IOdontologoService;
@@ -27,26 +29,26 @@ public class TurnoController {
     }
 
     @PostMapping("/agregar")
-    public ResponseEntity<Turno> agregar(@RequestBody Turno turno){
-        Turno turnoAgregado = turnoService.guardarTurno(turno);
+    public ResponseEntity<TurnoResponseDTO> agregar(@RequestBody TurnoRequestDTO turnoRequest){
+        TurnoResponseDTO turnoAgregado = turnoService.guardarTurno(turnoRequest);
         return ResponseEntity.ok(turnoAgregado);
     }
 
     @PutMapping("/actualizar")
-    public ResponseEntity<Turno> actualizar(@RequestBody Turno turno){
-        Turno turnoActualizado = turnoService.actualizarTurno(turno);
+    public ResponseEntity<TurnoResponseDTO> actualizar(@RequestBody Turno turno){
+        TurnoResponseDTO turnoActualizado = turnoService.actualizarTurno(turno);
         return ResponseEntity.ok(turnoActualizado);
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Turno>> getTurnos() {
-        List<Turno> turnos = turnoService.buscarTodosLosTurnos();
+    public ResponseEntity<List<TurnoResponseDTO>> getTurnos() {
+        List<TurnoResponseDTO> turnos = turnoService.buscarTodosLosTurnos();
         return ResponseEntity.ok(turnos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Turno>> buscarTurno(@PathVariable Long id) {
-        Optional<Turno> turnoBuscado = turnoService.buscar(id);
+    public ResponseEntity<TurnoResponseDTO> buscarTurno(@PathVariable Long id) {
+        TurnoResponseDTO turnoBuscado = turnoService.buscar(id);
         return ResponseEntity.ok(turnoBuscado);
     }
 

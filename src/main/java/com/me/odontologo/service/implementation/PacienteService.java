@@ -1,15 +1,13 @@
 package com.me.odontologo.service.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.me.odontologo.dto.PacienteResponseDTO;
-import com.me.odontologo.entity.Domicilio;
+import com.me.odontologo.dto.request.PacienteRequestDTO;
+import com.me.odontologo.dto.response.PacienteResponseDTO;
 import com.me.odontologo.entity.Paciente;
 import com.me.odontologo.exception.BadRequestException;
 import com.me.odontologo.exception.NoContentException;
-import com.me.odontologo.repository.IDomicilioRepository;
 import com.me.odontologo.repository.IPacienteRepository;
 import com.me.odontologo.service.IPacienteService;
-import org.modelmapper.internal.bytebuddy.dynamic.DynamicType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +26,12 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public Optional<PacienteResponseDTO> guardarPaciente(Paciente paciente){
-        PacienteResponseDTO pacienteDTO;
-        if (paciente.getUsuario() != null && paciente.getDomicilio() != null
-        && paciente.getDni() != null && paciente.getFechaDeAlta() != null){
-            pacienteDTO = mapper.convertValue(
-                    pacienteRepository.save(paciente), PacienteResponseDTO.class);
-            return Optional.of(pacienteDTO);
+    public Optional<PacienteResponseDTO> guardarPaciente(PacienteRequestDTO pacienteRequest){
+        if (pacienteRequest.getUsuario() != null && pacienteRequest.getDomicilio() != null
+        && pacienteRequest.getDni() != null && pacienteRequest.getFechaDeAlta() != null){
+            Paciente paciente = mapper.convertValue(pacienteRequest, Paciente.class);
+            pacienteRepository.save(paciente);
+            return Optional.of(mapper.convertValue(paciente, PacienteResponseDTO.class));
         }else{
             throw new BadRequestException("Faltan rellenar los campos fundamentales");
         }
@@ -42,12 +39,9 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public PacienteResponseDTO actualizarPaciente(Paciente paciente){
-        PacienteResponseDTO pacienteDTOActualizado = null;
         if(pacienteRepository.findById(paciente.getId()).isPresent()){
-            Paciente pacienteActualizado = pacienteRepository.save(paciente);
-            pacienteDTOActualizado =
-                    mapper.convertValue(pacienteActualizado, PacienteResponseDTO.class);
-            return pacienteDTOActualizado;
+            pacienteRepository.save(paciente);
+            return mapper.convertValue(paciente, PacienteResponseDTO.class);
         }else{
             throw new BadRequestException("El paciente no existe");
         }
@@ -75,11 +69,9 @@ public class PacienteService implements IPacienteService {
     }
     @Override
     public PacienteResponseDTO buscar(Long id){
-        PacienteResponseDTO pacienteDTO;
         Optional<Paciente> pacienteBuscado = pacienteRepository.findById(id);
         if (pacienteBuscado.isPresent()){
-            pacienteDTO = mapper.convertValue(pacienteBuscado, PacienteResponseDTO.class);
-            return pacienteDTO;
+            return mapper.convertValue(pacienteBuscado, PacienteResponseDTO.class);
         }else{
             throw new BadRequestException("El paciente no existe");
         }

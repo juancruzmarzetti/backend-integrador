@@ -29,7 +29,6 @@ public class Paciente {
     @JoinColumn(name = "id_domicilio", referencedColumnName = "id")
     private Domicilio domicilio;
     private Integer dni;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaDeAlta;
     private String usuario;
     private String password;
