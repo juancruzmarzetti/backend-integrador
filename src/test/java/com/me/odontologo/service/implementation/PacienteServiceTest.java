@@ -33,8 +33,6 @@ class PacienteServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12312356);
         paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
-        paciente1.setUsuario("jorge123");
-        paciente1.setPassword("123456789");
 
         Optional<PacienteResponseDTO> pacienteAlGuardar = pacienteService.guardarPaciente(paciente1);
 
@@ -56,8 +54,6 @@ class PacienteServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12312356);
         paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
-        paciente1.setUsuario("jorge123");
-        paciente1.setPassword("123456789");
 
         Domicilio domicilio2 = new Domicilio();
         domicilio2.setCalle("Pompeya2");
@@ -71,8 +67,6 @@ class PacienteServiceTest {
         paciente2.setDomicilio(domicilio2);
         paciente2.setDni(12312352);
         paciente2.setFechaDeAlta(LocalDate.of(2022,2,22));
-        paciente2.setUsuario("jorge222");
-        paciente2.setPassword("123456222");
 
         Optional<PacienteResponseDTO> paciente1Resp = pacienteService.guardarPaciente(paciente1);
         Optional<PacienteResponseDTO> paciente2Resp = pacienteService.guardarPaciente(paciente2);
@@ -99,8 +93,6 @@ class PacienteServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12312356);
         paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
-        paciente1.setUsuario("jorge123");
-        paciente1.setPassword("123456789");
 
         Domicilio domicilio2 = new Domicilio();
         domicilio2.setCalle("Pompeya2");
@@ -114,8 +106,6 @@ class PacienteServiceTest {
         paciente2.setDomicilio(domicilio2);
         paciente2.setDni(12312352);
         paciente2.setFechaDeAlta(LocalDate.of(2022,2,22));
-        paciente2.setUsuario("jorge222");
-        paciente2.setPassword("123456222");
 
         Optional<PacienteResponseDTO> paciente1Resp = pacienteService.guardarPaciente(paciente1);
         Optional<PacienteResponseDTO> paciente2Resp = pacienteService.guardarPaciente(paciente2);
@@ -140,8 +130,6 @@ class PacienteServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12312356);
         paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
-        paciente1.setUsuario("jorge123");
-        paciente1.setPassword("123456789");
 
         Optional<PacienteResponseDTO> paciente1Resp = pacienteService.guardarPaciente(paciente1);
         PacienteResponseDTO pacienteBuscado = pacienteService.buscar(paciente1Resp.get().getId());
@@ -164,8 +152,6 @@ class PacienteServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12312356);
         paciente1.setFechaDeAlta(LocalDate.of(2024,7,10));
-        paciente1.setUsuario("jorge123");
-        paciente1.setPassword("123456789");
 
         Optional<PacienteResponseDTO> paciente1Resp = pacienteService.guardarPaciente(paciente1);
 
@@ -174,14 +160,12 @@ class PacienteServiceTest {
         pacienteActualizar.setNombre(paciente1Resp.get().getNombre());
         pacienteActualizar.setApellido(paciente1Resp.get().getApellido());
         pacienteActualizar.setDomicilio(paciente1Resp.get().getDomicilio());
-        pacienteActualizar.setDni(paciente1Resp.get().getDni());
+        pacienteActualizar.setDni(111);
         pacienteActualizar.setFechaDeAlta(paciente1Resp.get().getFechaDeAlta());
-        pacienteActualizar.setUsuario("jorge222");
-        pacienteActualizar.setPassword("123456789");
 
         PacienteResponseDTO pacienteActualizado = pacienteService.actualizarPaciente(pacienteActualizar);
 
-        Assertions.assertEquals("jorge222", pacienteActualizado.getUsuario());
+        Assertions.assertEquals(111, pacienteActualizado.getDni());
 
         pacienteService.eliminarPaciente(paciente1Resp.get().getId());
     }

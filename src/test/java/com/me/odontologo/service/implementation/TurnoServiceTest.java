@@ -56,8 +56,6 @@ class TurnoServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12121212);
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
-        paciente1.setUsuario("jorgitojunior123");
-        paciente1.setPassword("123");
         Optional<PacienteResponseDTO> pacienteResp = pacienteService.guardarPaciente(paciente1);
 
         TurnoRequestDTO turno1 = new TurnoRequestDTO();
@@ -98,8 +96,6 @@ class TurnoServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12121212);
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
-        paciente1.setUsuario("jorgitojunior123");
-        paciente1.setPassword("123");
         Optional<PacienteResponseDTO> pacienteResp1 = pacienteService.guardarPaciente(paciente1);
 
         TurnoRequestDTO turno1 = new TurnoRequestDTO();
@@ -127,8 +123,6 @@ class TurnoServiceTest {
         paciente2.setDomicilio(domicilio2);
         paciente2.setDni(222222);
         paciente2.setFechaDeAlta(LocalDate.of(2022, 2, 12));
-        paciente2.setUsuario("jorgitojunior222");
-        paciente2.setPassword("222");
         Optional<PacienteResponseDTO> pacienteResp2 = pacienteService.guardarPaciente(paciente2);
 
         TurnoRequestDTO turno2 = new TurnoRequestDTO();
@@ -172,8 +166,6 @@ class TurnoServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12121212);
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
-        paciente1.setUsuario("jorgitojunior123");
-        paciente1.setPassword("123");
         Optional<PacienteResponseDTO> pacienteResp1 = pacienteService.guardarPaciente(paciente1);
 
         TurnoRequestDTO turno1 = new TurnoRequestDTO();
@@ -201,8 +193,7 @@ class TurnoServiceTest {
         paciente2.setDomicilio(domicilio2);
         paciente2.setDni(222222);
         paciente2.setFechaDeAlta(LocalDate.of(2022, 2, 12));
-        paciente2.setUsuario("jorgitojunior222");
-        paciente2.setPassword("222");
+
         Optional<PacienteResponseDTO> pacienteResp2 = pacienteService.guardarPaciente(paciente2);
 
         TurnoRequestDTO turno2 = new TurnoRequestDTO();
@@ -246,8 +237,6 @@ class TurnoServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12121212);
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
-        paciente1.setUsuario("jorgitojunior123");
-        paciente1.setPassword("123");
         Optional<PacienteResponseDTO> pacienteResp = pacienteService.guardarPaciente(paciente1);
 
         TurnoRequestDTO turno1 = new TurnoRequestDTO();
@@ -288,8 +277,6 @@ class TurnoServiceTest {
         paciente1.setDomicilio(domicilio1);
         paciente1.setDni(12121212);
         paciente1.setFechaDeAlta(LocalDate.of(2023, 7, 15));
-        paciente1.setUsuario("jorgitojunior123");
-        paciente1.setPassword("123");
         Optional<PacienteResponseDTO> pacienteResp1 = pacienteService.guardarPaciente(paciente1);
 
         TurnoRequestDTO turno1 = new TurnoRequestDTO();

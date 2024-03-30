@@ -30,7 +30,7 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Optional<PacienteResponseDTO> guardarPaciente(PacienteRequestDTO pacienteRequest){
-        if (pacienteRequest.getUsuario() != null && pacienteRequest.getDomicilio() != null
+        if (pacienteRequest.getDomicilio() != null
         && pacienteRequest.getDni() != null && pacienteRequest.getFechaDeAlta() != null){
             Paciente paciente = mapper.convertValue(pacienteRequest, Paciente.class);
             pacienteRepository.save(paciente);
@@ -38,10 +38,10 @@ public class PacienteService implements IPacienteService {
         }else{
             LOGGER.error("Faltan rellenar los campos fundamentales, " +
                     "pueden ser alguno de los siguientes: " +
-                    "usuario, domicilio, dni o fechaDeAlta");
+                    "domicilio, dni o fechaDeAlta");
             throw new BadRequestException("Faltan rellenar los campos fundamentales, " +
                     "pueden ser alguno de los siguientes: " +
-                    "usuario, domicilio, dni o fechaDeAlta");
+                    "domicilio, dni o fechaDeAlta");
         }
     }
 

@@ -30,8 +30,6 @@ public class Paciente {
     private Domicilio domicilio;
     private Integer dni;
     private LocalDate fechaDeAlta;
-    private String usuario;
-    private String password;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();

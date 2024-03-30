@@ -23,5 +23,4 @@ public class PacienteResponseDTO {
     private Domicilio domicilio;
     private Integer dni;
     private LocalDate fechaDeAlta;
-    private String usuario;
 }

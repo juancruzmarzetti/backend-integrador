@@ -20,6 +20,4 @@ public class PacienteRequestDTO {
     private Integer dni;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaDeAlta;
-    private String usuario;
-    private String password;
 }

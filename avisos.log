@@ -156,3 +156,7 @@
 [2024-03-12 23:03:33] [INFO ] [DB:56] Se crearon las tablas odontologos, domicilios y pacientes
 [2024-03-12 23:03:34] [INFO ] [DB:56] Se crearon las tablas odontologos, domicilios y pacientes
 [2024-03-12 23:03:35] [INFO ] [DB:56] Se crearon las tablas odontologos, domicilios y pacientes
+[2024-03-30 16:19:28] [ERROR] [OdontologoService:85] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-30 17:36:28] [ERROR] [OdontologoService:85] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-30 17:36:32] [ERROR] [OdontologoService:85] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-30 17:39:29] [ERROR] [OdontologoService:96] El odontologo buscadocon id 2 no existe
