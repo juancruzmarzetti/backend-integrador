@@ -18,9 +18,7 @@ window.addEventListener('load', function () {
                 provincia: document.querySelector('#provincia').value,
             },
             dni: document.querySelector('#dni').value,
-            fechaDeAlta: document.querySelector('#fecha-de-alta').value,
-            usuario: document.querySelector('#usuario').value,
-            password: document.querySelector('#password').value
+            fechaDeAlta: document.querySelector('#fecha-de-alta').value
         };
         //invocamos utilizando la función fetch la API odontólogos con el método POST que guardará
         //el odontólogo que enviaremos en formato JSON
@@ -70,8 +68,6 @@ window.addEventListener('load', function () {
         document.querySelector('#provincia').value = "";
         document.querySelector('#dni').value = "";
         document.querySelector('#fecha-de-alta').value = "";
-        document.querySelector('#password').value = "";
-        document.querySelector('#usuario').value = "";
     }
 
     /*(function(){

@@ -58,7 +58,6 @@ window.addEventListener('load', function () {
                  '<td class=\"td_apellido\">' + paciente.apellido + '</td>' +
                  '<td class=\"td_dni\">' + paciente.dni + '</td>' +
                  '<td class=\"td_fecha_de_alta\">' + paciente.fechaDeAlta + '</td>' +
-                 '<td class=\"td_usuario\">' + paciente.usuario + '</td>' +
                  '<td class=\"td_calle\">' + paciente.domicilio.calle + '</td>' +
                  '<td class=\"td_numero\">' + paciente.domicilio.numero + '</td>' +
                  '<td class=\"td_localidad\">' + paciente.domicilio.localidad + '</td>' +

@@ -22,8 +22,6 @@ window.addEventListener('load', function () {
            },
            dni: document.querySelector('#dni').value,
            fechaDeAlta: document.querySelector('#fecha-de-alta').value,
-           usuario: document.querySelector('#usuario').value,
-           password: document.querySelector('#password').value
        };
        //invocamos utilizando la función fetch la API películas con el método PUT
        //que modificará la película que enviaremos en formato JSON
@@ -65,8 +63,6 @@ window.addEventListener('load', function () {
              document.querySelector('#provincia').value = paciente.domicilio.provincia;
              document.querySelector('#dni').value = paciente.dni;
              document.querySelector('#fecha-de-alta').value = paciente.fechaDeAlta;
-             document.querySelector('#usuario').value = paciente.usuario;
-             document.querySelector('#password').value = paciente.password;
 
              //el formulario por default está oculto y al editar se habilita
              document.querySelector('#div_pelicula_updating').style.display = "block";
