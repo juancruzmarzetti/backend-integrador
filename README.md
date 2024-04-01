@@ -24,6 +24,14 @@ y tablas H2 serían las siguientes:
 A su vez cada clase tiene sus atributos individuales obviamente.
 
 ---
+
+### Integrantes del proyecto:
+
+- Francesco Maurano (francescomaurano10@gmail.com)
+- Juan Cruz Marzetti Falcone (naujmarz@gmail.com)
+
+
+---
 ## Colaboración:
 
 Si queres colaborar con el proyecto podés hacer un fork
@@ -59,6 +67,14 @@ and H2 tables would be the following:
 In turn, each class obviously has its individual attributes.
 
 ---
+
+### Project members:
+
+- Francesco Maurano (francescomaurano10@gmail.com)
+- Juan Cruz Marzetti Falcone (naujmarz@gmail.com)
+
+---
+
 ## Collaboration:
 
 If you want to collaborate with the project you can make a fork
