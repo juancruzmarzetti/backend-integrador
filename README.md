@@ -1,6 +1,6 @@
   # Sobre el proyecto:
   
-Este proyecto es un Trabajo Prácti Integrador
+Este proyecto es un Trabajo Práctico Integrador
 de la Matería Back End 1 de la carrera
 Certified Tech Developer de Digital House
 en colaboración con Globant & Mercado Libre.
