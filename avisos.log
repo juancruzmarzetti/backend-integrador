@@ -160,3 +160,11 @@
 [2024-03-30 17:36:28] [ERROR] [OdontologoService:85] la petición se realizó con éxito pero la respuesta no tiene contenido
 [2024-03-30 17:36:32] [ERROR] [OdontologoService:85] la petición se realizó con éxito pero la respuesta no tiene contenido
 [2024-03-30 17:39:29] [ERROR] [OdontologoService:96] El odontologo buscadocon id 2 no existe
+[2024-03-30 18:17:07] [ERROR] [OdontologoService:96] El odontologo buscadocon id 2 no existe
+[2024-03-30 18:17:10] [ERROR] [PacienteService:92] El paciente con id 2 no existe
+[2024-03-31 20:48:04] [ERROR] [PacienteService:92] El paciente con id 2 no existe
+[2024-03-31 20:48:25] [ERROR] [TurnoService:138] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-31 20:48:35] [ERROR] [TurnoService:138] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-31 20:48:52] [ERROR] [TurnoService:138] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-31 20:48:59] [ERROR] [TurnoService:138] la petición se realizó con éxito pero la respuesta no tiene contenido
+[2024-03-31 20:49:33] [ERROR] [TurnoService:138] la petición se realizó con éxito pero la respuesta no tiene contenido
