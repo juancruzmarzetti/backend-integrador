@@ -52,9 +52,11 @@ deploy:
     - mkdir ~/.ssh
     - touch ~/.ssh/config
     - curl -s https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer | sh
+    - echo "$JUANKEYS" > juankeys.pem
     - chmod 600 juankeys.pem
     - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   script:
     - ansible-playbook -i hosts.ini playbook.yaml --key-file "juankeys.pem"
+    - rm juankeys.pem
   only:
     - main
