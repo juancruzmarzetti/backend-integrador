@@ -1,0 +1,60 @@
+stages:
+  - build
+  - test
+  - create_image
+  - deploy
+
+variables:
+  MVN_IMAGE: maven:3.9.8-amazoncorretto-17-al2023
+  SECURE_FILES_DOWNLOAD_PATH: "./"
+
+build:
+  stage: build
+  image: $MVN_IMAGE
+  script:
+    - echo "Maven compilee started"
+    - mvn compile
+  only:
+    - main
+
+test:
+  stage: test
+  image: $MVN_IMAGE
+  script:
+    - echo "Testeando código de nuevo"
+    - mvn test
+  only:
+    - main
+
+create_image:
+  stage: create_image
+  image: docker:stable
+  services:
+    - docker:dind
+    - name: docker:dind
+      alias: thedockerhost
+  variables:
+    DOCKER_HOST: tcp://thedockerhost:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t aquiroot/proyinte:latest .
+    - docker push aquiroot/proyinte:latest
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  image: python:3.9
+  before_script:
+    - pip install ansible
+    - mkdir ~/.ssh
+    - touch ~/.ssh/config
+    - curl -s https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer | sh
+    - chmod 600 juankeys.pem
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  script:
+    - ansible-playbook -i hosts.ini playbook.yaml --key-file "juankeys.pem"
+  only:
+    - main
