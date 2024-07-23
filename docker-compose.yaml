@@ -1,0 +1,5 @@
+services:
+  java:
+    image: juancruzmarzetti/proyinte
+    ports:
+      - 80:8080
