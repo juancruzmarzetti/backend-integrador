@@ -39,8 +39,8 @@ create_image:
     DOCKER_TLS_CERTDIR: ""
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t aquiroot/proyinte:latest .
-    - docker push aquiroot/proyinte:latest
+    - docker build -t juancruzmarzetti/proyinte:latest .
+    - docker push juancruzmarzetti/proyinte:latest
   only:
     - main
 

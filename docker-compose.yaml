@@ -1,5 +1,5 @@
 services:
   java:
-    image: aquiroot/proyinte
+    image: juancruzmarzetti/proyinte
     ports:
       - 80:8080
