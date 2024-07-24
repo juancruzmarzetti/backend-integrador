@@ -38,9 +38,12 @@ create_image:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   script:
+    - echo "$JUANKEYS" > juankeys.pem
+    - chmod 600 juankeys.pem
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t juancruzmarzetti/proyinte:latest .
     - docker push juancruzmarzetti/proyinte:latest
+    - rm juankeys.pem
   only:
     - main
 
@@ -48,12 +51,12 @@ deploy:
   stage: deploy
   image: python:3.9
   before_script:
+    - echo "$JUANKEYS" > juankeys.pem
+    - chmod 600 juankeys.pem
     - pip install ansible
     - mkdir ~/.ssh
     - touch ~/.ssh/config
     - curl -s https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer | sh
-    - echo "$JUANKEYS" > juankeys.pem
-    - chmod 600 juankeys.pem
     - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   script:
     - ansible-playbook -i hosts.ini playbook.yaml --key-file "juankeys.pem"
