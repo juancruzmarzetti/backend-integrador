@@ -38,9 +38,12 @@ create_image:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   script:
+    - echo "$JUANKEYS" > juankeys.pem
+    - chmod 600 juankeys.pem
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t juancruzmarzetti/proyinte:latest .
     - docker push juancruzmarzetti/proyinte:latest
+    - rm juankeys.pem
   only:
     - main
 
