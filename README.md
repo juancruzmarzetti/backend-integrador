@@ -40,7 +40,7 @@ explicación de qué solución(o mejora) esos cambios le brindan al código.
 
 # IaC
 
-Consta de un grupo de repositorios en Gitlab donde habría un repositorio con la IaC de Terraform y otro repositorio con el código de Java.
+Consta de un grupo de repositorios en Gitlab donde habría un repositorio con la IaC de Terraform y otro repositorio con el código de Java(+ archivos de IaC).
 
 Las configuraciones de IaC como `hosts.ini`, `playbook.yaml`, `Dockerfile`, `docker-compose.yaml`, `.gitlab-ci.yml`, son para la creación de un contenedor Docker y la creación de una imagen que se desplegará en una instancia EC2. Este repositorio se ejecuta en GitLab. Para el correcto funcionamiento, primero debemos ejecutar la siguiente infraestructura con Terraform: [iac-for-docker-in-ec2](https://github.com/juancruzmarzetti/iac-for-docker-in-ec2) (también automatizada con variables y pipeline desde GitLab).
 
