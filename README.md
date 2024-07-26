@@ -40,6 +40,8 @@ explicación de qué solución(o mejora) esos cambios le brindan al código.
 
 # IaC
 
+Consta de un grupo de repositorios en Gitlab donde habría un repositorio con la IaC de Terraform y otro repositorio con el código de Java.
+
 Las configuraciones de IaC como `hosts.ini`, `playbook.yaml`, `Dockerfile`, `docker-compose.yaml`, `.gitlab-ci.yml`, son para la creación de un contenedor Docker y la creación de una imagen que se desplegará en una instancia EC2. Este repositorio se ejecuta en GitLab. Para el correcto funcionamiento, primero debemos ejecutar la siguiente infraestructura con Terraform: [iac-for-docker-in-ec2](https://github.com/juancruzmarzetti/iac-for-docker-in-ec2) (también automatizada con variables y pipeline desde GitLab).
 
 ## Configuración de Variables de Terraform
@@ -91,6 +93,7 @@ Por último, tenemos que personalizar el pipeline, archivo `.gitlab-ci.yml`, don
 - Reemplazar donde se nombra a `juankeys.pem` por el nombre del archivo de nuestras llaves .pem.
 - Reemplazar donde se nombra a `JUANKEYS` ($JUANKEYS) por el nombre que le pusimos a nuestra variable de entorno CI/CD que guarda el valor de nuestras llaves .pem.
 
+Después de esto, siempre que se haga un commit, si nuestra infraestructura de terraform está levantada en AWS (cada vez que se levante esta infraestructura hay que volver a personalizar el archivo `hosts.ini` de nuestro repositorio de backend con la IPv4 pública de nuestra instancia EC2) podemos acceder a nuestra página web levantada con AWS dirigiendonos a esa IPv4 Pública desde el navegador.
 
 
 ---
